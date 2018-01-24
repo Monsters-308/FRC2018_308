@@ -52,6 +52,7 @@ public class climb extends Command {
 
     // Called once after isFinished returns true
     @Override
+    //climb to the potato
     protected void end() {
     }
 
