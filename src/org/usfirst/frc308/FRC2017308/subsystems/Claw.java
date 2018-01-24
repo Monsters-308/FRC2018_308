@@ -12,5 +12,10 @@ public class Claw extends Subsystem{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public void periodic() {
+		
+	}
 
 }
