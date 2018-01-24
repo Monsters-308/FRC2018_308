@@ -1,29 +1,25 @@
 
 package org.usfirst.frc308.FRC2017308.commands;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.drive.MecanumDrive;
-import org.usfirst.frc308.FRC2017308.OI;
 import org.usfirst.frc308.FRC2017308.Robot;
-import org.usfirst.frc308.FRC2017308.RobotMap;
 import org.usfirst.frc308.FRC2017308.subsystems.Chassis;
 /**
  *
  */
 public class drive extends Command {
 
+	//Set subsystem requirement
     public drive() {
-
     	requires(Robot.chassis);
-
     }
 
     @Override
+    //Initialize drivetrain setup
     protected void initialize() {
     	Chassis.setupDrive();
     }
 
-   
+   //Run perodic loop
 	protected void execute() {
 		Robot.chassis.periodic();
     }
