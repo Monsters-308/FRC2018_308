@@ -7,11 +7,8 @@ public class RobotConstants {
 	public static double strafe = Robot.oi.joystick1.getY();
 	public static double turn = Robot.oi.joystick1.getX();
 
-	//Arm Constants
-	public static double joyArm = Robot.oi.joystick2.getZ();
-	
 //Chassis Constants
-	public static final double ChassisKp = 0.3;
+	public static double ChassisKp = 0.3;
 	public static double ChassisKd;
 	public static double ChassisKi;
 	public static double angle;
