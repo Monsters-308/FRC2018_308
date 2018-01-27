@@ -1,13 +1,13 @@
 
-package org.usfirst.frc308.FRC2017308.commands;
+package org.usfirst.frc308.FRC2018308.commands;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class clawControl extends Command {
+public class TeleopClaw extends Command {
 
-    public clawControl() {
+    public TeleopClaw() {
 
     }
 
