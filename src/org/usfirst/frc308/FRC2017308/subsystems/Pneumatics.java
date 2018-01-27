@@ -1,9 +1,8 @@
 
-package org.usfirst.frc308.FRC2018308.subsystems;
+package org.usfirst.frc308.FRC2017308.subsystems;
 
-import org.usfirst.frc308.FRC2018308.RobotMap;
-import org.usfirst.frc308.FRC2018308.commands.*;
-
+import org.usfirst.frc308.FRC2017308.RobotMap;
+import org.usfirst.frc308.FRC2017308.commands.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;

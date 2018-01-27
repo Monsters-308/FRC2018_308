@@ -8,16 +8,15 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-package org.usfirst.frc308.FRC2018308;
+package org.usfirst.frc308.FRC2017308;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import org.usfirst.frc308.FRC2018308.commands.*;
-import org.usfirst.frc308.FRC2018308.subsystems.*;
+import org.usfirst.frc308.FRC2017308.commands.*;
+import org.usfirst.frc308.FRC2017308.subsystems.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
