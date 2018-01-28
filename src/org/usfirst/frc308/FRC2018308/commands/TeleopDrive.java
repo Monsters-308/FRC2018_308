@@ -1,15 +1,16 @@
 
-package org.usfirst.frc308.FRC2017308.commands;
+package org.usfirst.frc308.FRC2018308.commands;
 import edu.wpi.first.wpilibj.command.Command;
-import org.usfirst.frc308.FRC2017308.Robot;
-import org.usfirst.frc308.FRC2017308.subsystems.Chassis;
+
+import org.usfirst.frc308.FRC2018308.Robot;
+import org.usfirst.frc308.FRC2018308.subsystems.Chassis;
 /**
  *
  */
-public class drive extends Command {
+public class TeleopDrive extends Command {
 
 	//Set subsystem requirement
-    public drive() {
+    public TeleopDrive() {
     	requires(Robot.chassis);
     }
 

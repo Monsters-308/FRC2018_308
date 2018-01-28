@@ -1,13 +1,13 @@
 
-package org.usfirst.frc308.FRC2017308.commands;
+package org.usfirst.frc308.FRC2018308.commands;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class climb extends Command {
+public class TeleopLift extends Command {
 
-    public climb() {
+    public TeleopLift() {
     	
     }
 

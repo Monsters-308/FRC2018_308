@@ -1,8 +1,13 @@
 
 <<<<<<< HEAD:src/org/usfirst/frc308/FRC2017308/subsystems/Arm.java
+<<<<<<< HEAD:src/org/usfirst/frc308/FRC2017308/subsystems/Arm.java
 package org.usfirst.frc308.FRC2017308.subsystems;
+=======
+package org.usfirst.frc308.FRC2018308.subsystems;
 
-import org.usfirst.frc308.FRC2017308.commands.*;
+import org.usfirst.frc308.FRC2018308.commands.*;
+>>>>>>> parent of ede964c... Revert "Name Refactoring":src/org/usfirst/frc308/FRC2018308/subsystems/Arm.java
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 =======
