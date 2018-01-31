@@ -1,6 +1,7 @@
 
 package org.usfirst.frc308.FRC2018308.subsystems;
 
+import org.usfirst.frc308.FRC2018308.Robot;
 import org.usfirst.frc308.FRC2018308.RobotConstants;
 import org.usfirst.frc308.FRC2018308.RobotMap;
 import org.usfirst.frc308.FRC2018308.commands.*;
@@ -43,7 +44,9 @@ public class Chassis extends Subsystem {
 
 	// Update drive outputs with current joystick values.
 	public void periodic() {
-		mainDrive.driveCartesian(RobotConstants.forward, RobotConstants.strafe, RobotConstants.turn, RobotConstants.angle);
+//		mainDrive.driveCartesian(RobotConstants.forward, RobotConstants.strafe, RobotConstants.turn, RobotConstants.angle);
+									//Strafe				Forward/Backward			Turn						Gyro
+		mainDrive.driveCartesian(Robot.oi.joystick2.getX(), -Robot.oi.joystick1.getY(), Robot.oi.joystick1.getX(), RobotConstants.angle);
 	}
 
 	// Initialize gyro.
@@ -58,8 +61,9 @@ public class Chassis extends Subsystem {
 	public static void setupDrive() {
 		frontLeftMotor2.follow(Chassis.frontLeftMotor1);
 		frontRightMotor2.follow(Chassis.frontRightMotor1);
+		
 		rearLeftMotor2.follow(Chassis.rearLeftMotor1);
-		rearRightMotor2.follow(Chassis.frontLeftMotor1);
-		rearRightMotor2.setInverted(true);
+		rearRightMotor2.follow(Chassis.rearRightMotor1);
+		
 	}
 }

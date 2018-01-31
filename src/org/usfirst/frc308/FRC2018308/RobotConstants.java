@@ -2,7 +2,7 @@ package org.usfirst.frc308.FRC2018308;
 
 public class RobotConstants {
 
-//OI Constants
+//OI Constants0
 	public static double forward = -Robot.oi.joystick2.getX();
 	public static double strafe = Robot.oi.joystick1.getY();
 	public static double turn = Robot.oi.joystick1.getX();
