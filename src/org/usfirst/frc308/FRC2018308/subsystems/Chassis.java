@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -47,10 +48,19 @@ public class Chassis extends Subsystem {
 	public void periodic() {
 		//                       Strafe                      Forward/Backward             Turn                            Gyro
 		mainDrive.driveCartesian(Robot.oi.joystick2.getX(), -Robot.oi.joystick1.getY(), Robot.oi.joystick1.getX(), RobotConstants.angle);
+		
 		RobotConstants.frontLeftEncPos = frontLeftMotor1.getSensorCollection().getQuadraturePosition();
+		SmartDashboard.putNumber("Front Left Encoder Value", RobotConstants.frontLeftEncPos);
+		
 		RobotConstants.rearLeftEncPos = rearLeftMotor1.getSensorCollection().getQuadraturePosition();
+		SmartDashboard.putNumber("Rear Left Encoder Value", RobotConstants.rearLeftEncPos);
+		
 		RobotConstants.frontRightEncPos = frontRightMotor1.getSensorCollection().getQuadraturePosition();
+		SmartDashboard.putNumber("Front Right Encoder Value", RobotConstants.frontRightEncPos);
+		
 		RobotConstants.rearRightEncPos = rearRightMotor1.getSensorCollection().getQuadraturePosition();
+		SmartDashboard.putNumber("Rear Right Encoder Value", RobotConstants.rearRightEncPos);
+		
 	}
 
 	// Initialize gyro.
