@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 /**
@@ -44,26 +45,12 @@ public class Chassis extends Subsystem {
 
 	// Update drive outputs with current joystick values.
 	public void periodic() {
-		// mainDrive.driveCartesian(RobotConstants.forward, RobotConstants.strafe,
-		// RobotConstants.turn, RobotConstants.angle);
 		//                       Strafe                      Forward/Backward             Turn                            Gyro
 		mainDrive.driveCartesian(Robot.oi.joystick2.getX(), -Robot.oi.joystick1.getY(), Robot.oi.joystick1.getX(), RobotConstants.angle);
-
-		if (Math.abs(Robot.oi.joystick1.getY()) == 0) {
-			RobotConstants.fowardError = Math
-					.abs((((RobotConstants.frontRightRawValue) + (RobotConstants.rearRightRawValue)) / 2)
-							- (((RobotConstants.frontLeftRawValue) + (RobotConstants.rearLeftRawValue)) / 2));
-		} else {
-			RobotConstants.fowardError = 0;
-		}
-
-		if (Math.abs(Robot.oi.joystick2.getX()) == 0) {
-			RobotConstants.strafeError = Math
-					.abs((((RobotConstants.frontRightRawValue) + (RobotConstants.frontLeftRawValue)) / 2)
-							- (((RobotConstants.rearLeftRawValue) + (RobotConstants.rearRightRawValue)) / 2));
-		} else {
-			RobotConstants.strafeError = 0;
-		}
+		RobotConstants.frontLeftEncPos = frontLeftMotor1.getSensorCollection().getQuadraturePosition();
+		RobotConstants.rearLeftEncPos = rearLeftMotor1.getSensorCollection().getQuadraturePosition();
+		RobotConstants.frontRightEncPos = frontRightMotor1.getSensorCollection().getQuadraturePosition();
+		RobotConstants.rearRightEncPos = rearRightMotor1.getSensorCollection().getQuadraturePosition();
 	}
 
 	// Initialize gyro.
@@ -81,29 +68,5 @@ public class Chassis extends Subsystem {
 
 		rearLeftMotor2.follow(Chassis.rearLeftMotor1);
 		rearRightMotor2.follow(Chassis.rearRightMotor1);
-
-		RobotMap.frontLeftEnc.setMaxPeriod(.1);
-		RobotMap.frontLeftEnc.setMinRate(10);
-		RobotMap.frontLeftEnc.setDistancePerPulse(5);
-		RobotMap.frontLeftEnc.setReverseDirection(true);
-		RobotMap.frontLeftEnc.setSamplesToAverage(7);
-
-		RobotMap.rearLeftEnc.setMaxPeriod(.1);
-		RobotMap.rearLeftEnc.setMinRate(10);
-		RobotMap.rearLeftEnc.setDistancePerPulse(5);
-		RobotMap.rearLeftEnc.setReverseDirection(true);
-		RobotMap.rearLeftEnc.setSamplesToAverage(7);
-
-		RobotMap.frontRightEnc.setMaxPeriod(.1);
-		RobotMap.frontRightEnc.setMinRate(10);
-		RobotMap.frontRightEnc.setDistancePerPulse(5);
-		RobotMap.frontRightEnc.setReverseDirection(true);
-		RobotMap.frontRightEnc.setSamplesToAverage(7);
-
-		RobotMap.rearRightEnc.setMaxPeriod(.1);
-		RobotMap.rearRightEnc.setMinRate(10);
-		RobotMap.rearRightEnc.setDistancePerPulse(5);
-		RobotMap.rearRightEnc.setReverseDirection(true);
-		RobotMap.rearRightEnc.setSamplesToAverage(7);
 	}
 }
