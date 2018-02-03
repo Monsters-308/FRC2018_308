@@ -9,23 +9,25 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;
 
+
 /**
  *
  */
 public class Pneumatics extends Subsystem {
 
-	private final Compressor compressor1 = RobotMap.pneumaticsCompressor1;
-	private final Solenoid pusherSolenoid = RobotMap.pneumaticspusherSolenoid;
-	private final DoubleSolenoid clawSolenoid = RobotMap.pneumaticsclawSolenoid;
+    private final Compressor compressor1 = RobotMap.pneumaticsCompressor1;
+    private final Solenoid pusherSolenoid = RobotMap.pneumaticspusherSolenoid;
+    private final DoubleSolenoid clawSolenoid = RobotMap.pneumaticsclawSolenoid;
 
-	@Override
-	public void initDefaultCommand() {
+    @Override
+    public void initDefaultCommand() {
+    	
+    }
 
-	}
-
-	@Override
-	public void periodic() {
-
-	}
+    @Override
+    public void periodic() {
+ 
+    }
 
 }
+
