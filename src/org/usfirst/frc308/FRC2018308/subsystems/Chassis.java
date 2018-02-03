@@ -46,7 +46,6 @@ public class Chassis extends Subsystem {
 
 	// Update drive outputs with current joystick values.
 	public void periodic() {
-<<<<<<< HEAD
 		// Strafe Forward/Backward Turn Gyro
 		mainDrive.driveCartesian(Robot.oi.joystick2.getX(), -Robot.oi.joystick1.getY(), Robot.oi.joystick1.getX(),
 				RobotConstants.angle);
@@ -63,24 +62,6 @@ public class Chassis extends Subsystem {
 		RobotConstants.rearRightEncPos = rearRightMotor1.getSensorCollection().getQuadraturePosition();
 		SmartDashboard.putNumber("Rear Right Encoder Value", RobotConstants.rearRightEncPos);
 
-=======
-		//                       Strafe                      Forward/Backward             Turn                            Gyro
-//		mainDrive.driveCartesian(Robot.oi.joystick1.getRawAxis(0), -Robot.oi.joystick1.getRawAxis(5), Robot.oi.joystick1.getRawAxis(4), RobotConstants.angle);
-		mainDrive.driveCartesian(Robot.oi.joystick2.getX(), -Robot.oi.joystick1.getY(), Robot.oi.joystick1.getX(), RobotConstants.angle);
-		
-		RobotConstants.frontLeftEncPos = frontLeftMotor1.getSensorCollection().getQuadraturePosition();
-		SmartDashboard.putNumber("Front Left Encoder Value 0", RobotConstants.frontLeftEncPos);
-		
-		RobotConstants.rearLeftEncPos = rearLeftMotor1.getSensorCollection().getQuadraturePosition();
-		SmartDashboard.putNumber("Rear Left Encoder Value 4", RobotConstants.rearLeftEncPos);
-		
-		RobotConstants.frontRightEncPos = frontRightMotor1.getSensorCollection().getQuadraturePosition();
-		SmartDashboard.putNumber("Front Right Encoder Value 2", RobotConstants.frontRightEncPos);
-		
-		RobotConstants.rearRightEncPos = rearRightMotor1.getSensorCollection().getQuadraturePosition();
-		SmartDashboard.putNumber("Rear Right Encoder Value 6", RobotConstants.rearRightEncPos);
-		
->>>>>>> 29f66d1552bc59a2b19208eee7735ab89415595a
 	}
 
 	// Initialize gyro.
@@ -98,10 +79,5 @@ public class Chassis extends Subsystem {
 
 		rearLeftMotor2.follow(Chassis.rearLeftMotor1);
 		rearRightMotor2.follow(Chassis.rearRightMotor1);
-		
-		frontLeftMotor1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-		frontRightMotor1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-		rearLeftMotor1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-		rearRightMotor1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 	}
 }
