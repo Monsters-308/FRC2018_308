@@ -1,14 +1,17 @@
 
 package org.usfirst.frc308.FRC2018308.commands;
+import org.usfirst.frc308.FRC2018308.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class AutonomousCommand extends Command {
+public class AutonomousCommand extends CommandGroup {
 
     public AutonomousCommand() {
-
+    	addSequential(new AutonomousDrive());
     }
 
     @Override
@@ -17,6 +20,7 @@ public class AutonomousCommand extends Command {
 
     @Override
     protected void execute() {
+    	
     }
 
     @Override

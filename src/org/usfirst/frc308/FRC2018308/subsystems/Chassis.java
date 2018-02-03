@@ -51,16 +51,16 @@ public class Chassis extends Subsystem {
 		mainDrive.driveCartesian(Robot.oi.joystick2.getX(), -Robot.oi.joystick1.getY(), Robot.oi.joystick1.getX(), RobotConstants.angle);
 		
 		RobotConstants.frontLeftEncPos = frontLeftMotor1.getSensorCollection().getQuadraturePosition();
-		SmartDashboard.putNumber("Front Left Encoder Value", RobotConstants.frontLeftEncPos);
+		SmartDashboard.putNumber("Front Left Encoder Value 0", RobotConstants.frontLeftEncPos);
 		
 		RobotConstants.rearLeftEncPos = rearLeftMotor1.getSensorCollection().getQuadraturePosition();
-		SmartDashboard.putNumber("Rear Left Encoder Value", RobotConstants.rearLeftEncPos);
+		SmartDashboard.putNumber("Rear Left Encoder Value 4", RobotConstants.rearLeftEncPos);
 		
 		RobotConstants.frontRightEncPos = frontRightMotor1.getSensorCollection().getQuadraturePosition();
-		SmartDashboard.putNumber("Front Right Encoder Value", RobotConstants.frontRightEncPos);
+		SmartDashboard.putNumber("Front Right Encoder Value 2", RobotConstants.frontRightEncPos);
 		
 		RobotConstants.rearRightEncPos = rearRightMotor1.getSensorCollection().getQuadraturePosition();
-		SmartDashboard.putNumber("Rear Right Encoder Value", RobotConstants.rearRightEncPos);
+		SmartDashboard.putNumber("Rear Right Encoder Value 6", RobotConstants.rearRightEncPos);
 		
 	}
 
