@@ -47,6 +47,7 @@ public class Chassis extends Subsystem {
 	// Update drive outputs with current joystick values.
 	public void periodic() {
 		//                       Strafe                      Forward/Backward             Turn                            Gyro
+//		mainDrive.driveCartesian(Robot.oi.joystick1.getRawAxis(0), -Robot.oi.joystick1.getRawAxis(5), Robot.oi.joystick1.getRawAxis(4), RobotConstants.angle);
 		mainDrive.driveCartesian(Robot.oi.joystick2.getX(), -Robot.oi.joystick1.getY(), Robot.oi.joystick1.getX(), RobotConstants.angle);
 		
 		RobotConstants.frontLeftEncPos = frontLeftMotor1.getSensorCollection().getQuadraturePosition();
@@ -78,5 +79,10 @@ public class Chassis extends Subsystem {
 
 		rearLeftMotor2.follow(Chassis.rearLeftMotor1);
 		rearRightMotor2.follow(Chassis.rearRightMotor1);
+		
+		frontLeftMotor1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+		frontRightMotor1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+		rearLeftMotor1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+		rearRightMotor1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 	}
 }
