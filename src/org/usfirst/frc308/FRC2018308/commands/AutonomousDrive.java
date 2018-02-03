@@ -13,33 +13,17 @@ public class AutonomousDrive extends Command {
 	public AutonomousDrive() {
 		requires(Robot.chassis);
 	}
-    protected void initialize() {
-    	Chassis.setupDrive();
-    }
-
-   //Run perodic loop
-	protected void execute() {
-		moveDistance();
-		System.out.println("test");
-    }
 	
 	public static double getEncTics(double dist) {
 		double encTics = (dist/18.84955592153876)*512;
-		System.out.println(encTics);
 		return encTics;
 	}
 	
 	public void moveDistance() {
-		Chassis.frontLeftMotor1.set(ControlMode.PercentOutput, 1);
-		Chassis.frontRightMotor1.set(ControlMode.PercentOutput, 1);
-		Chassis.rearLeftMotor1.set(ControlMode.PercentOutput, 1);
-		Chassis.rearRightMotor1.set(ControlMode.PercentOutput, 1);
-		
-		
-		Chassis.frontLeftMotor1.set(ControlMode.Position, AutonomousDrive.getEncTics(12));
-		Chassis.frontRightMotor1.set(ControlMode.Position, AutonomousDrive.getEncTics(12));
-		Chassis.rearLeftMotor1.set(ControlMode.Position, AutonomousDrive.getEncTics(12));
-		Chassis.rearRightMotor1.set(ControlMode.Position, AutonomousDrive.getEncTics(12));
+		Chassis.frontLeftMotor1.set(ControlMode.Position, AutonomousDrive.getEncTics(36));
+		Chassis.frontRightMotor1.set(ControlMode.Position, AutonomousDrive.getEncTics(36));
+		Chassis.rearLeftMotor1.set(ControlMode.Position, AutonomousDrive.getEncTics(36));
+		Chassis.rearRightMotor1.set(ControlMode.Position, AutonomousDrive.getEncTics(36));
 	}
 
 	@Override
