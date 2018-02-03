@@ -26,7 +26,11 @@ public class Pneumatics extends Subsystem {
 
     @Override
     public void periodic() {
- 
+    	
+    }
+    
+    public void setupPneumatics() {
+    	compressor1.start();
     }
 
 }
