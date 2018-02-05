@@ -1,12 +1,12 @@
 package org.usfirst.frc308.FRC2018308.commands;
 
 import org.usfirst.frc308.FRC2018308.Robot;
-import org.usfirst.frc308.FRC2018308.subsystems.Chassis;
+import org.usfirst.frc308.FRC2018308.subsystems.Arm;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-//public class TeleopArm extends Command{
-/*
+public class TeleopArm extends Command{
+
 	public TeleopArm() {
 		requires(Robot.arm);
 	}
@@ -26,4 +26,4 @@ import edu.wpi.first.wpilibj.command.Command;
 	}
 
 }
-*/
+
