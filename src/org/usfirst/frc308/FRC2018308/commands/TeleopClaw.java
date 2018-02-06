@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class TeleopClaw extends Command {
 
+	public static boolean clawOpen = false;
+
 	public TeleopClaw() {
 
 	}
@@ -20,10 +22,17 @@ public class TeleopClaw extends Command {
 
 	@Override
 	protected void execute() {
-		if (Robot.oi.joystick2.getRawButton(2) == true) {
-			Robot.claw.openClaw();
-		} else {
-			Robot.claw.closeClaw();
+		if (clawOpen == false) {
+			if (Robot.oi.joystick2.getRawButton(2) == true) {
+				Robot.claw.openClaw();
+				clawOpen = true;
+			}
+		}
+		if(clawOpen == true) {
+			if(Robot.oi.joystick2.getRawButton(2) == true) {
+				Robot.claw.closeClaw();
+				clawOpen = false;
+			}
 		}
 	}
 
