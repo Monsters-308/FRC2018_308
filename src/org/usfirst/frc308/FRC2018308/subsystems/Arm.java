@@ -10,11 +10,11 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class Arm extends Subsystem{
+public class Arm extends Subsystem {
 
 	public static final WPI_TalonSRX armMotor = RobotMap.armMotor;
 	public static final WPI_TalonSRX extendArmMotor = RobotMap.frontLeftMotor1;
-	
+
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
@@ -22,9 +22,8 @@ public class Arm extends Subsystem{
 	}
 
 	public void periodic() {
-		armMotor.set(-1*(Robot.oi.joystick2.getRawAxis(1))/2);
-		extendArmMotor.set(-1*(Robot.oi.joystick2.getRawAxis(5))/3);
+		armMotor.set(-1 * (Robot.oi.joystick2.getRawAxis(1)) / 2);
+		extendArmMotor.set(-1 * (Robot.oi.joystick2.getRawAxis(5)) / 3);
 	}
 
 }
-
