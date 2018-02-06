@@ -36,6 +36,7 @@ public class RobotMap {
     public static WPI_TalonSRX rearLeftMotor2;
     public static WPI_TalonSRX rearRightMotor1;
     public static WPI_TalonSRX rearRightMotor2;
+    public static WPI_TalonSRX extendArmMotor;
     public static Compressor pneumaticsCompressor1;
     public static Solenoid pneumaticspusherSolenoid;
     public static Solenoid clawSolenoid;
@@ -71,6 +72,8 @@ public class RobotMap {
         
         rearRightMotor2 = new WPI_TalonSRX(7);
         LiveWindow.addActuator("Chassis", "CAN Talon 8", rearRightMotor2);
+        
+        extendArmMotor = new WPI_TalonSRX(9);
     
 /*        pneumaticsCompressor1 = new Compressor(0);
         LiveWindow.addActuator("Pneumatics", "Compressor 1", pneumaticsCompressor1);
