@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Arm extends Subsystem {
 
 	public static final WPI_TalonSRX armMotor = RobotMap.armMotor;
-	public static final WPI_TalonSRX extendArmMotor = RobotMap.frontLeftMotor1;
+	public static final WPI_TalonSRX extendArmMotor = RobotMap.extendArmMotor;
 
 	@Override
 	protected void initDefaultCommand() {
@@ -22,8 +22,8 @@ public class Arm extends Subsystem {
 	}
 
 	public void periodic() {
-		armMotor.set(-1 * (Robot.oi.joystick2.getRawAxis(1)) / 2);
-		extendArmMotor.set(-1 * (Robot.oi.joystick2.getRawAxis(5)) / 3);
+		armMotor.set(Robot.oi.joystick2.getRawAxis(1) / 2);
+		extendArmMotor.set(Robot.oi.joystick2.getRawAxis(5) / 3);
 	}
 
 }

@@ -74,13 +74,14 @@ public class RobotMap {
         LiveWindow.addActuator("Chassis", "CAN Talon 8", rearRightMotor2);
         
         extendArmMotor = new WPI_TalonSRX(9);
-    
-/*        pneumaticsCompressor1 = new Compressor(0);
+        LiveWindow.addActuator("Arm", "CAN Talon 10", extendArmMotor);
+        
+        pneumaticsCompressor1 = new Compressor(0);
         LiveWindow.addActuator("Pneumatics", "Compressor 1", pneumaticsCompressor1);
         
         pneumaticspusherSolenoid = new Solenoid(1, 0);
         LiveWindow.addActuator("Pneumatics", "pusherSolenoid", pneumaticspusherSolenoid);
- */       
+       
 //      Warning, the two modules in robot builder are different!
         clawSolenoid = new Solenoid(3, 2);
         LiveWindow.addActuator("Pneumatics", "clawSolenoid", clawSolenoid);
