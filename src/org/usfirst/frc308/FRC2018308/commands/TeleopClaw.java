@@ -13,6 +13,7 @@ public class TeleopClaw extends Command {
 	public static boolean clawOpen = false;
 
 	public TeleopClaw() {
+		requires(Robot.claw);
 
 	}
 
@@ -22,18 +23,8 @@ public class TeleopClaw extends Command {
 
 	@Override
 	protected void execute() {
-		if (clawOpen == false) {
-			if (Robot.oi.joystick2.getRawButton(2) == true) {
-				Robot.claw.openClaw();
-				clawOpen = true;
-			}
-		}
-		if(clawOpen == true) {
-			if(Robot.oi.joystick2.getRawButton(2) == true) {
-				Robot.claw.closeClaw();
-				clawOpen = false;
-			}
-		}
+//		Robot.claw.openClaw();
+		Robot.claw.periodic();
 	}
 
 	@Override

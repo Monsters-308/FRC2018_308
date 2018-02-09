@@ -79,11 +79,11 @@ public class RobotMap {
         pneumaticsCompressor1 = new Compressor(0);
         LiveWindow.addActuator("Pneumatics", "Compressor 1", pneumaticsCompressor1);
         
-        pneumaticspusherSolenoid = new Solenoid(1, 0);
-        LiveWindow.addActuator("Pneumatics", "pusherSolenoid", pneumaticspusherSolenoid);
+//        pneumaticspusherSolenoid = new Solenoid(0);
+//        LiveWindow.addActuator("Pneumatics", "pusherSolenoid", pneumaticspusherSolenoid);
        
 //      Warning, the two modules in robot builder are different!
-        clawSolenoid = new Solenoid(3, 2);
+        clawSolenoid = new Solenoid(1);
         LiveWindow.addActuator("Pneumatics", "clawSolenoid", clawSolenoid);
        
 

@@ -17,18 +17,20 @@ public class Claw extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
-
+		setDefaultCommand(new TeleopClaw());
 	}
 
 	@Override
 	public void periodic() {
-
+		Robot.claw.openClaw();
 	}
-
+	
 	public void openClaw() {
-		Claw.clawSolenoid.set(true);
-		;
+		if(Robot.oi.joystick1.getRawButton(2) == true) {
+			Claw.clawSolenoid.set(true);
+		}else {
+			Claw.clawSolenoid.set(false);
+		}
 	}
 
 	public void closeClaw() {
