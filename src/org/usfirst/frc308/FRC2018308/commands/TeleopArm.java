@@ -13,20 +13,16 @@ public class TeleopArm extends Command {
 	}
 
 	protected void initialize() {
-		Robot.arm.setupArm();
-	}
+		System.out.println("initialize");
+		
+		Robot.arm.setupArm();}
+	
 
 	protected void execute() {
-		if(Robot.oi.joystick1.getRawButton(1) == true) {
-			if(moving == false) {
-				Robot.arm.moveDistance(500);
-				moving = true;
-			}			
-		}else {
-			moving = false;
-		}	
-	}
-
+		Robot.arm.periodic();
+		Robot.arm.moveCurrent();
+		}
+	
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub

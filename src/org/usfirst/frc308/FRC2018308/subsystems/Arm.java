@@ -18,6 +18,10 @@ public class Arm extends Subsystem {
 	public static final WPI_TalonSRX armMotor = RobotMap.armMotor;
 	public static final WPI_TalonSRX extendArmMotor = RobotMap.extendArmMotor;
 	public static boolean commandPosition = false;
+	public static int tmploop = 0;
+	public static int targetPosition = 0;
+	public double current;
+	
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
@@ -26,45 +30,58 @@ public class Arm extends Subsystem {
 	
 	public void setupArm() {
 		armMotor.setInverted(true);
-		armMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+		armMotor.set(ControlMode.Current, 0);
+		current = 0;
+/*		
+		armMotor.setSelectedSensorPosition(0, 0, 0);
+	    armMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
 		armMotor.setSelectedSensorPosition(0, 0, 100);
-		armMotor.configNominalOutputForward(0, 0);
-		armMotor.configNominalOutputReverse(0, 0);
-		armMotor.configPeakOutputForward(0.7, 0);
-		armMotor.configPeakOutputReverse(-0.7, 0);
+		armMotor.configNominalOutputForward(0, 10);
+		armMotor.configNominalOutputReverse(0, 10);
+		armMotor.configPeakOutputForward(0.7, 10);
+		armMotor.configPeakOutputReverse(-0.7, 10);
 		
-		armMotor.config_kD(0, 0, 0);
-		armMotor.config_kI(0, 0, 0);
-		armMotor.config_kP(0, 0, 0);
-		armMotor.config_kF(0,  1, 0);
+		armMotor.config_kD(0, 0.05, 10);
+		armMotor.config_kI(0, 0.001, 10);
+		armMotor.config_kP(0, 0.01, 10);
+		armMotor.config_kF(0,  1, 10);
 		
-//		armMotor.configForwardSoftLimitEnable(true, 0);
 		
-		armMotor.configAllowableClosedloopError(0, 0, 100);
-		 
+		armMotor.configAllowableClosedloopError(0, 16, 100);
 		armMotor.setSensorPhase(false);
-		
-//		armMotor.configClosedloopRamp(1, 10);
+	*/	
 	}
 
-	public void moveDistance(int distance) {
-		armMotor.set(ControlMode.Position, distance);//+armMotor.getSelectedSensorPosition(0));		
+	public void moveDistance(double dist) {
+//		armMotor.configForwardSoftLimitEnable(true, 10);
+//		armMotor.configForwardSoftLimitThreshold(targetPosition / 2, 10);
+//		armMotor.configClosedloopRamp(1, 10);
+//		targetPosition += dist;
+//		armMotor.set(ControlMode.Position, targetPosition);
+				
 	}
+	
+	public void moveCurrent() {
+		if(Robot.oi.joystick1.getRawButton(4) == true) {
+			current += 0.05;
+		}
+		
+		armMotor.set(ControlMode.Current, current);
+	}	
+	public void moveSpeed() {
+		armMotor.set(ControlMode.PercentOutput, Robot.oi.joystick2.getX());//+armMotor.getSelectedSensorPosition(0));		
+	}
+	
 	public void periodic() {
-//		armMotor.set(Robot.oi.joystick1.getRawAxis(1)/3);
-//		extendArmMotor.set(Robot.oi.joystick2.getRawAxis(5)/3);
-//		if(Robot.oi.joystick1.getRawButton(4) == true) {
-//			if(commandPosition == false) {
-//				armMotor.set(ControlMode.Position, armMotor.getSelectedSensorPosition(0)+500);
-//				commandPosition = true;
-//			}			
-//		}else {
-//			commandPosition = false;
-//		}
-		
-		System.out.println(armMotor.getSelectedSensorPosition(0));
-		
-		SmartDashboard.putNumber("Arm Encoder", armMotor.getSelectedSensorPosition(0));
+
+		if(tmploop++ % 50 == 0) {
+			tmploop = 1;
+			System.out.println(armMotor.getSelectedSensorPosition(0)+" Error "+armMotor.getClosedLoopError(0)+" Target "+armMotor.getClosedLoopTarget(0));
+			
+			
+			SmartDashboard.putNumber("Arm Encoder", armMotor.getSelectedSensorPosition(0));
+			
+		}
 	}
 
 
