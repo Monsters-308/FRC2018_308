@@ -7,22 +7,19 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class TeleopArm extends Command {
 
-	static boolean moving = false;
 	public TeleopArm() {
 		requires(Robot.arm);
 	}
 
 	protected void initialize() {
 		System.out.println("initialize");
-		
-		Robot.arm.setupArm();}
-	
+		Robot.arm.setupArm();
+	}
 
 	protected void execute() {
 		Robot.arm.periodic();
-		Robot.arm.moveCurrent();
-		}
-	
+	}
+
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
