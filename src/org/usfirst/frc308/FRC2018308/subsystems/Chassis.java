@@ -47,7 +47,7 @@ public class Chassis extends Subsystem {
 	// Update drive outputs with current joystick values.
 	public void periodic() {
 		// Strafe Forward/Backward Turn Gyro
-	mainDrive.driveCartesian(Robot.oi.xboxControl.getRawAxis(4), -Robot.oi.xboxControl.getRawAxis(1), Robot.oi.xboxControl.getRawAxis(0),
+	mainDrive.driveCartesian(Robot.oi.driverJoystick.getRawAxis(4), -Robot.oi.driverJoystick.getRawAxis(1), Robot.oi.driverJoystick.getRawAxis(0),
 				0.0);
 	
 	/*	
