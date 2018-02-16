@@ -22,16 +22,17 @@ public class Arm extends Subsystem {
 	public static int _lastPosition = 0;
 	public static int _lastPositionRate = 0;
 	public static double _lastDemandSpeed = 0.0;
-
-	public static int _maxArmTravelUp = 1950; // per arm set a max Travel positive
-
+	public static double codriverJoystickValue;
+	public static String armDirection;
+	public static double maxValue = 3500; // Game Value
+//	public static double maxValue = 10000;
 	public void initDefaultCommand() {
 		setDefaultCommand(new TeleopArm());
 	}
 
 	public void setupArm() {
-		armMotor.setInverted(true); //inverts direction
-		armMotor.setSensorPhase(false);//true does not work
+	    armMotor.setInverted(true); //inverts direction
+		armMotor.setSensorPhase(true);
 
 		armMotor.set(ControlMode.PercentOutput, 0);
 
@@ -47,6 +48,8 @@ public class Arm extends Subsystem {
 		_lastPosition = armMotor.getSelectedSensorPosition(0);
 		_lastPositionRate = 0;
 		_lastDemandSpeed = 0.0;
+		
+	
 
 	}
 	
@@ -55,51 +58,37 @@ public class Arm extends Subsystem {
 	}
 
 	public void move() {
+		codriverJoystickValue = Robot.oi.codriver.getY();
+	
+		//When encoder value reads negative, reset to zero
 		if(armMotor.getSelectedSensorPosition(0) <= 0) {
 			armMotor.setSelectedSensorPosition(0, 0, 100);
 		}
 //		System.out.println(armMotor.getSelectedSensorPosition(0));
-		
-//		_lastPositionRate = armMotor.getSelectedSensorPosition(0) - _lastPosition; // instanious change from previous
-		_lastPositionRate = 0; // instanious change from previous
-		
-		
-		// position
-		if (-1*Robot.oi.codriver.getY() > 0.1 //FIX NEGATIVE VALUE
-				&& (armMotor.getSelectedSensorPosition(0) + _lastPositionRate) < _maxArmTravelUp) 
-		{ // if we continue at
-				System.out.println("in move up");																					// the same rate
-																									// then keep on
-																									// moving
-			// let us detune the last 10% of travel to slow the motion
-			if ((armMotor.getSelectedSensorPosition(0) * 100) / _maxArmTravelUp >= 90) {
-				armMotor.set(ControlMode.PercentOutput, Robot.oi.codriver.getY() / 2.0); // go at 1/2 Speed
-				_lastDemandSpeed = (Robot.oi.codriver.getY()) / 2.0;
-				System.out.println("motor should go up slow");	
-			} else {
-				armMotor.set(ControlMode.PercentOutput, Robot.oi.codriver.getY());
-				_lastDemandSpeed = Robot.oi.codriver.getY();
-				System.out.println("motor should go up normal");	
-			}
-		} else if (-1*Robot.oi.codriver.getY() <= -0.1
-				&& (armMotor.getSelectedSensorPosition(0) - _lastPositionRate) > 0) { // if we continue down at the same
-																						// rate then keep on moving
-			if ((armMotor.getSelectedSensorPosition(0) * 100) / _maxArmTravelUp <= 10) {
-				armMotor.set(ControlMode.PercentOutput, Robot.oi.codriver.getY() / 2.0); // go at 1/2 Speed
-				_lastDemandSpeed = (Robot.oi.codriver.getY()) / 2.0;
-			} else {
-				armMotor.set(ControlMode.PercentOutput, Robot.oi.codriver.getY());
-				_lastDemandSpeed = Robot.oi.codriver.getY();
-			}
 
+		// Arm Down
+		if (codriverJoystickValue <= -0.1  && armMotor.getSelectedSensorPosition(0) > 0) {
+				armMotor.setNeutralMode(NeutralMode.Coast);
+				armMotor.set(ControlMode.PercentOutput, codriverJoystickValue); 
+				armDirection = "Arm Down";	
+				System.out.println("Arm Down");	
+	
+		// Move Arm Up if not already at the bottom
+		} else if (codriverJoystickValue >= 0.1 && (armMotor.getSelectedSensorPosition(0) < maxValue)) { 
+			//START HERE  Sending the motor a positive percentage does not drive motor down (i.e. does nothing)
+			
+				armMotor.setNeutralMode(NeutralMode.Coast);
+				armMotor.set(ControlMode.PercentOutput, codriverJoystickValue); // go at 1/2 Speed
+				armDirection = "Arm Up";
+				System.out.println("Arm Up");
+			
 		} else { // this is in the deadband state so try to hold the position
 			armMotor.setNeutralMode(NeutralMode.Brake);
+//			System.out.println("Hold Position");
 			armMotor.set(ControlMode.PercentOutput, 0.0);
-			_lastDemandSpeed = 0;
 			
 		}
 
-		_lastPosition = armMotor.getSelectedSensorPosition(0);
 	}
 
 	public void periodic() {
@@ -113,6 +102,10 @@ public class Arm extends Subsystem {
 //
 //		}
 		SmartDashboard.putNumber("Last Position", _lastPosition);
+		SmartDashboard.putNumber("Joystick Value", codriverJoystickValue);
+		SmartDashboard.putString("Arm Direction", "Tom");
+		SmartDashboard.putNumber("Arm Output Current", armMotor.getOutputCurrent());
+		SmartDashboard.putNumber("Arm Speed", armMotor.get());
 	}
 
 	protected boolean isFinished() {
