@@ -56,6 +56,10 @@ public class Arm extends Subsystem {
 	public void basicControl() {
 		armMotor.set(Robot.oi.codriver.getY());
 	}
+	
+	public void extendArm() {
+		extendArmMotor.set(ControlMode.PercentOutput, Robot.oi.codriver.getRawAxis(2) * -1);
+	}
 
 	public void move() {
 		codriverJoystickValue = Robot.oi.codriver.getY();
