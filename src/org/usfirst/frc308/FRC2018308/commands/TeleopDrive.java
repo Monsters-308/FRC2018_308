@@ -24,6 +24,7 @@ public class TeleopDrive extends Command {
 
 	// Run perodic loop
 	protected void execute() {
+//		Robot.chassis.gyro();
 		Robot.chassis.periodic();
 	}
 

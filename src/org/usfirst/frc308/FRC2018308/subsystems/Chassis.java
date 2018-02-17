@@ -5,8 +5,9 @@ import org.usfirst.frc308.FRC2018308.Robot;
 import org.usfirst.frc308.FRC2018308.RobotConstants;
 import org.usfirst.frc308.FRC2018308.RobotMap;
 import org.usfirst.frc308.FRC2018308.commands.*;
-
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogGyro;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
@@ -36,7 +37,7 @@ public class Chassis extends Subsystem {
 			RobotMap.frontRightMotor1, RobotMap.rearRightMotor1);
 
 	// Instantiate gyro
-	public static Gyro gyro = null;
+	public static Gyro gyro = new ADXRS450_Gyro();
 
 	@Override
 	// Set default command for a subsystem
@@ -47,17 +48,9 @@ public class Chassis extends Subsystem {
 	// Update drive outputs with current joystick values.
 	public void periodic() {
 		// Strafe Forward/Backward Turn Gyro
-	mainDrive.driveCartesian(Robot.oi.driverJoystick.getRawAxis(4), -Robot.oi.driverJoystick.getRawAxis(1), Robot.oi.driverJoystick.getRawAxis(0),
+	mainDrive.driveCartesian(Robot.oi.driverXbox.getRawAxis(4), -Robot.oi.driverXbox.getRawAxis(1), Robot.oi.driverXbox.getRawAxis(0),
 				0.0);
-	
-	/*	
-		if(Robot.oi.joystick1.getX() <= 10 && Robot.oi.joystick1.getY() <=10 && Robot.oi.joystick1.getTwist() <= 10) {
-			RobotMap.frontLeftMotor1.set(0);
-			RobotMap.rearLeftMotor1.set(0);
-			RobotMap.frontRightMotor1.set(0);
-			RobotMap.rearRightMotor1.set(0);
-		}
-*/
+
 		RobotConstants.frontLeftEncPos = frontLeftMotor1.getSensorCollection().getQuadraturePosition();
 		SmartDashboard.putNumber("Front Left Encoder Value", RobotConstants.frontLeftEncPos);
 
@@ -69,15 +62,16 @@ public class Chassis extends Subsystem {
 
 		RobotConstants.rearRightEncPos = rearRightMotor1.getSensorCollection().getQuadraturePosition();
 		SmartDashboard.putNumber("Rear Right Encoder Value", RobotConstants.rearRightEncPos);
+		
+		SmartDashboard.putNumber("Angle", RobotConstants.angle);
 
 	}
 
 	// Initialize gyro.
 	public void gyro() {
 		RobotConstants.angle = gyro.getAngle(); // get current heading
-		RobotMap.drive(-1.0, -(RobotConstants.angle) * (RobotConstants.ChassisKp)); // drive towards heading 0
-		Timer.delay(0.004);
-		gyro = new AnalogGyro(1);
+//		RobotMap.drive(-1.0, -(RobotConstants.angle) * (RobotConstants.ChassisKp)); // drive towards heading 0
+//		Timer.delay(0.004);
 	}
 
 	// Setup motor followers and inversions

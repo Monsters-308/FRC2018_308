@@ -33,8 +33,4 @@ public class Claw extends Subsystem {
 		}
 	}
 
-	public void closeClaw() {
-		Claw.clawSolenoid.set(false);
-	}
-
 }

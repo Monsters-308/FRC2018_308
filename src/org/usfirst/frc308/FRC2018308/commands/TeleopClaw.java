@@ -23,7 +23,6 @@ public class TeleopClaw extends Command {
 
 	@Override
 	protected void execute() {
-//		Robot.claw.openClaw();
 		Robot.claw.periodic();
 	}
 
