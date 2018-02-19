@@ -37,7 +37,7 @@ public class Chassis extends Subsystem {
 			RobotMap.frontRightMotor1, RobotMap.rearRightMotor1);
 
 	// Instantiate gyro
-	public static Gyro gyro = new ADXRS450_Gyro();
+//	public static Gyro gyro = new ADXRS450_Gyro();
 
 	@Override
 	// Set default command for a subsystem
@@ -69,7 +69,7 @@ public class Chassis extends Subsystem {
 
 	// Initialize gyro.
 	public void gyro() {
-		RobotConstants.angle = gyro.getAngle(); // get current heading
+//		RobotConstants.angle = gyro.getAngle(); // get current heading
 //		RobotMap.drive(-1.0, -(RobotConstants.angle) * (RobotConstants.ChassisKp)); // drive towards heading 0
 //		Timer.delay(0.004);
 	}

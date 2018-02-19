@@ -2,12 +2,13 @@ package org.usfirst.frc308.FRC2018308.subsystems;
 
 import org.usfirst.frc308.FRC2018308.Robot;
 import org.usfirst.frc308.FRC2018308.RobotMap;
-import org.usfirst.frc308.FRC2018308.commands.TeleopDrive;
 import org.usfirst.frc308.FRC2018308.commands.TeleopLift;
 
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Lift extends Subsystem {
+
 	public static boolean leftWingDown;
 	public static boolean rightWingDown;
 
@@ -18,6 +19,11 @@ public class Lift extends Subsystem {
 	public void setupLift() {
 		leftWingDown = false;
 		rightWingDown = false;
+		
+		RobotMap.leftReleaseSolenoid.set(false);
+        RobotMap.leftLiftSolenoid.set(false);
+        RobotMap.rightReleaseSolenoid.set(false);
+        RobotMap.rightLiftSolenoid.set(false);
 	}
 
 	public void dropWingLeft() {
@@ -35,16 +41,14 @@ public class Lift extends Subsystem {
 	}
 
 	public void raiseWingLeft() {
-		if (Robot.oi.codriver.getRawButton(9) == true && leftWingDown == true) {
-			RobotMap.leftLiftSolenoid1.set(true);
-			RobotMap.leftLiftSolenoid2.set(true);
+		if (Robot.oi.codriver.getRawButton(5) == true && leftWingDown == true) {
+			RobotMap.leftLiftSolenoid.set(true);
 		}
 	}
 
 	public void raiseWingRight() {
-		if (Robot.oi.codriver.getRawButton(10) == true && rightWingDown == true) {
-			RobotMap.rightLiftSolenoid1.set(false);
-			RobotMap.rightLiftSolenoid2.set(false);
+		if (Robot.oi.codriver.getRawButton(6) == true && rightWingDown == true) {
+			RobotMap.rightLiftSolenoid.set(false);
 		}
 	}
 	
