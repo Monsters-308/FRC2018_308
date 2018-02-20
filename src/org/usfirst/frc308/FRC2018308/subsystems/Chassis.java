@@ -22,15 +22,19 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
  */
 public class Chassis extends Subsystem {
 
+	public static double x;
+	public static double y;
+	public static double z;
+	
 	// Local motor instantiation from RobotMap
 	public static final WPI_TalonSRX frontLeftMotor1 = RobotMap.frontLeftMotor1;
-	public static final WPI_TalonSRX frontLeftMotor2 = RobotMap.frontLeftMotor2;
+//	public static final WPI_TalonSRX frontLeftMotor2 = RobotMap.frontLeftMotor2;
 	public static final WPI_TalonSRX frontRightMotor1 = RobotMap.frontRightMotor1;
-	public static final WPI_TalonSRX frontRightMotor2 = RobotMap.frontRightMotor2;
+//	public static final WPI_TalonSRX frontRightMotor2 = RobotMap.frontRightMotor2;
 	public static final WPI_TalonSRX rearLeftMotor1 = RobotMap.rearLeftMotor1;
-	public static final WPI_TalonSRX rearLeftMotor2 = RobotMap.rearLeftMotor2;
+//	public static final WPI_TalonSRX rearLeftMotor2 = RobotMap.rearLeftMotor2;
 	public static final WPI_TalonSRX rearRightMotor1 = RobotMap.rearRightMotor1;
-	public static final WPI_TalonSRX rearRightMotor2 = RobotMap.rearRightMotor2;
+//	public static final WPI_TalonSRX rearRightMotor2 = RobotMap.rearRightMotor2;
 
 	// Instantiate main MecanumDrive
 	public MecanumDrive mainDrive = new MecanumDrive(RobotMap.frontLeftMotor1, RobotMap.rearLeftMotor1,
@@ -48,9 +52,18 @@ public class Chassis extends Subsystem {
 	// Update drive outputs with current joystick values.
 	public void periodic() {
 		// Strafe Forward/Backward Turn Gyro
-	mainDrive.driveCartesian(Robot.oi.driverXbox.getRawAxis(4), -Robot.oi.driverXbox.getRawAxis(1), Robot.oi.driverXbox.getRawAxis(0),
-				0.0);
-
+		y = Robot.oi.driverXbox.getRawAxis(1);
+		z = Robot.oi.driverXbox.getRawAxis(4);
+		if(Robot.oi.driverXbox.getRawAxis(2) >= 0) {
+			x = Robot.oi.driverXbox.getRawAxis(2);
+		}
+		
+		if(Robot.oi.driverXbox.getRawAxis(3) >= 0) {
+			x = Robot.oi.driverXbox.getRawAxis(3) * -1;
+		}
+		
+	mainDrive.driveCartesian(x, -y, z, 0.0);
+	
 		RobotConstants.frontLeftEncPos = frontLeftMotor1.getSensorCollection().getQuadraturePosition();
 		SmartDashboard.putNumber("Front Left Encoder Value", RobotConstants.frontLeftEncPos);
 
@@ -76,11 +89,11 @@ public class Chassis extends Subsystem {
 
 	// Setup motor followers and inversions
 	public static void setupDrive() {
-		frontLeftMotor2.follow(Chassis.frontLeftMotor1);
-		frontRightMotor2.follow(Chassis.frontRightMotor1);
-
-		rearLeftMotor2.follow(Chassis.rearLeftMotor1);
-		rearRightMotor2.follow(Chassis.rearRightMotor1);
+//		frontLeftMotor2.follow(Chassis.frontLeftMotor1);
+//		frontRightMotor2.follow(Chassis.frontRightMotor1);
+//
+//		rearLeftMotor2.follow(Chassis.rearLeftMotor1);
+//		rearRightMotor2.follow(Chassis.rearRightMotor1);
 		
 		frontLeftMotor1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		frontRightMotor1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);

@@ -41,14 +41,16 @@ public class Lift extends Subsystem {
 	}
 
 	public void raiseWingLeft() {
-		if (Robot.oi.codriver.getRawButton(5) == true && leftWingDown == true) {
+		if (Robot.oi.codriver.getRawButton(5) == true) { 
+				//&& leftWingDown == true) {
 			RobotMap.leftLiftSolenoid.set(true);
 		}
 	}
 
 	public void raiseWingRight() {
-		if (Robot.oi.codriver.getRawButton(6) == true && rightWingDown == true) {
-			RobotMap.rightLiftSolenoid.set(false);
+		if (Robot.oi.codriver.getRawButton(6) == true ) {
+				//&& rightWingDown == true) {
+			RobotMap.rightLiftSolenoid.set(true);
 		}
 	}
 	

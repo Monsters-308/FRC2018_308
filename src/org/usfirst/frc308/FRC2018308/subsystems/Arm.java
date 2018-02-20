@@ -28,12 +28,11 @@ public class Arm extends Subsystem {
 	public static double codriverJoystickValue;
 	public static String armDirection;
 	public static double maxArmHeight; // Game Value
-	public static double maxArmExtension = 109000;
+	public static double maxArmExtension;
 	public static double armUDPackageZoneMidPoint = 1075;
-	public static double armUDPackageZoneLowerLimit= 156;
+	public static double armUDPackageZoneLowerLimit = 156;
 	public static double armUDPackageZoneUpperLimit = 2000;
-	
-	
+
 	// public static double maxValue = 10000;
 	public void initDefaultCommand() {
 		setDefaultCommand(new TeleopArm());
@@ -62,18 +61,20 @@ public class Arm extends Subsystem {
 		armExtension = extendArmMotor.getSelectedSensorPosition(0);
 		_lastPositionRate = 0;
 		_lastDemandSpeed = 0.0;
-		
-		
-		// WARNING:  inGameMode MUST be set to True in code prior to deployment to be correct during Game Matches
-		if(Robot.inGameMode) {
-			maxArmHeight = 4700;
+
+		// WARNING: inGameMode MUST be set to True in code prior to deployment to be
+		// correct during Game Matches
+		if (Robot.inGameMode == false) {
+			maxArmExtension = 2000;
+			maxArmHeight = 3500;
 			armUDPackageZoneMidPoint = 1075;
-			armUDPackageZoneLowerLimit= 156;
+			armUDPackageZoneLowerLimit = 156;
 			armUDPackageZoneUpperLimit = 2000;
-		}else {
-			maxArmHeight = 4700;
+		} else if (Robot.inGameMode == true) {
+			maxArmExtension = 60068;
+			maxArmHeight = 9500;
 			armUDPackageZoneMidPoint = 1075;
-			armUDPackageZoneLowerLimit= 156;
+			armUDPackageZoneLowerLimit = 156;
 			armUDPackageZoneUpperLimit = 2000;
 		}
 	}
@@ -84,10 +85,16 @@ public class Arm extends Subsystem {
 
 	public void extendArm() {
 		armExtension = extendArmMotor.getSelectedSensorPosition(0);
-		if (extendArmMotor.getSelectedSensorPosition(0) < maxArmExtension) {
-			extendArmMotor.set(ControlMode.PercentOutput, Robot.oi.codriver.getRawAxis(2) * -1);
+		
+		//If In/Out Joystick is neutral
+		if (Robot.oi.codriver.getZ() != 0) {
+			extendArmMotor.set(ControlMode.PercentOutput, Robot.oi.codriver.getZ() * -1);
+		//If joystick is neutral and button is pressed
+		} else if (Robot.oi.codriver.getRawButton(9) == true && armExtension >= maxArmExtension) {
+			extendArmMotor.set(-0.5);
 		}
 
+		//Zero encoder if negative
 		if (armExtension < 0) {
 			extendArmMotor.setSelectedSensorPosition(0, 0, 10);
 		}
@@ -150,7 +157,7 @@ public class Arm extends Subsystem {
 		SmartDashboard.putNumber("Arm Output Current", armMotor.getOutputCurrent());
 		SmartDashboard.putNumber("Arm Up/Down Speed", armMotor.get());
 		SmartDashboard.putBoolean("In Game Mode", Robot.inGameMode);
-		
+
 	}
 
 	protected boolean isFinished() {

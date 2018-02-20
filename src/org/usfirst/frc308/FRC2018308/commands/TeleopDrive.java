@@ -32,10 +32,10 @@ public class TeleopDrive extends Command {
 			RobotMap.frontRightMotor1.set(0);
 			RobotMap.rearLeftMotor1.set(0);
 			RobotMap.rearRightMotor1.set(0);
-			RobotMap.frontLeftMotor2.set(0);
-			RobotMap.frontRightMotor2.set(0);
-			RobotMap.rearLeftMotor2.set(0);
-			RobotMap.rearRightMotor2.set(0);
+//			RobotMap.frontLeftMotor2.set(0);
+//			RobotMap.frontRightMotor2.set(0);
+//			RobotMap.rearLeftMotor2.set(0);
+//			RobotMap.rearRightMotor2.set(0);
 		}
 
 	}
