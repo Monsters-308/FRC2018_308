@@ -56,6 +56,7 @@ public class Arm extends Subsystem {
 		// Arm In/Out Configuration
 		extendArmMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
 		extendArmMotor.setSelectedSensorPosition(0, 0, 10);
+		extendArmMotor.setSensorPhase(false);
 
 		_lastPosition = armMotor.getSelectedSensorPosition(0);
 		armExtension = extendArmMotor.getSelectedSensorPosition(0);
@@ -66,12 +67,12 @@ public class Arm extends Subsystem {
 		// correct during Game Matches
 		if (Robot.inGameMode == false) {
 			maxArmExtension = 2000;
-			maxArmHeight = 3500;
+			maxArmHeight = 4700;
 			armUDPackageZoneMidPoint = 1075;
 			armUDPackageZoneLowerLimit = 156;
 			armUDPackageZoneUpperLimit = 2000;
 		} else if (Robot.inGameMode == true) {
-			maxArmExtension = 60068;
+			maxArmExtension = 45315;
 			maxArmHeight = 9500;
 			armUDPackageZoneMidPoint = 1075;
 			armUDPackageZoneLowerLimit = 156;
@@ -79,19 +80,23 @@ public class Arm extends Subsystem {
 		}
 	}
 
-	public void basicControl() {
-		armMotor.set(Robot.oi.codriver.getY());
-	}
-
 	public void extendArm() {
 		armExtension = extendArmMotor.getSelectedSensorPosition(0);
 		
-		//If In/Out Joystick is neutral
+//		if(extendArmMotor.getSelectedSensorPosition(0) < 0) {
+//			extendArmMotor.setSelectedSensorPosition(0, 0, 100);
+//		}
+		//If In/Out Joystick is not neutral
 		if (Robot.oi.codriver.getZ() != 0) {
 			extendArmMotor.set(ControlMode.PercentOutput, Robot.oi.codriver.getZ() * -1);
+			System.out.println("Not Neutral" + extendArmMotor.getSelectedSensorPosition(0));
 		//If joystick is neutral and button is pressed
 		} else if (Robot.oi.codriver.getRawButton(9) == true && armExtension >= maxArmExtension) {
 			extendArmMotor.set(-0.5);
+			System.out.println("Retracting Arm" + extendArmMotor.getSelectedSensorPosition(0));
+		}else if(Robot.oi.codriver.getZ() == 0) {
+			extendArmMotor.set(0);
+			System.out.println("Neutral" + extendArmMotor.getSelectedSensorPosition(0));
 		}
 
 		//Zero encoder if negative
@@ -110,7 +115,8 @@ public class Arm extends Subsystem {
 		// System.out.println(armMotor.getSelectedSensorPosition(0));
 
 		// Arm Down
-		if (codriverJoystickValue <= -0.1 && armMotor.getSelectedSensorPosition(0) > 0) {
+		if (codriverJoystickValue <= -0.1 ) {
+				//&& armMotor.getSelectedSensorPosition(0) > 0) {
 			armMotor.setNeutralMode(NeutralMode.Coast);
 			armMotor.set(ControlMode.PercentOutput, codriverJoystickValue);
 			armDirection = "Arm Down";

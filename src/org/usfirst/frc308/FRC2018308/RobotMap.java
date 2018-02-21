@@ -88,13 +88,13 @@ public class RobotMap {
         
 //        LiveWindow.addActuator("Pneumatics", "clawSolenoid", clawSolenoid);
         
-//        if(Robot.inGameMode == false) {
-//        	clawSolenoid = new Solenoid(2);
-//        	leftReleaseSolenoid = new Solenoid(4);
-//            leftLiftSolenoid = new Solenoid(0);
-//            rightReleaseSolenoid = new Solenoid(3);
-//            rightLiftSolenoid = new Solenoid(1);
-//       }
+        if(Robot.inGameMode == false) {
+        	clawSolenoid = new Solenoid(2);
+        	leftReleaseSolenoid = new Solenoid(4);
+            leftLiftSolenoid = new Solenoid(0);
+            rightReleaseSolenoid = new Solenoid(3);
+            rightLiftSolenoid = new Solenoid(1);
+       }
         if(Robot.inGameMode == true){
         	clawSolenoid = new Solenoid(4);
         	leftReleaseSolenoid = new Solenoid(1);
