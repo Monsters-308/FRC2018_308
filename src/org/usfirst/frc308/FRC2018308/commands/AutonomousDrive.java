@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class AutonomousDrive extends Command {
 
+	public static double dist = 16;
+	
 	public AutonomousDrive() {
 		requires(Robot.chassis);
 	}
@@ -20,27 +22,30 @@ public class AutonomousDrive extends Command {
 
 	// Run perodic loop
 	protected void execute() {
-		moveDistance();
-		System.out.println("test");
+
 	}
 
-	public static double getEncTics(double dist) {
+	public static double getEncTics() {
 		double encTics = (dist / 18.84955592153876) * 512;
 		System.out.println(encTics);
 		return encTics;
 	}
 
-	public void moveDistance() {
-
-		Chassis.frontLeftMotor1.set(ControlMode.Position, AutonomousDrive.getEncTics(12));
-		Chassis.frontRightMotor1.set(ControlMode.Position, AutonomousDrive.getEncTics(12));
-		Chassis.rearLeftMotor1.set(ControlMode.Position, AutonomousDrive.getEncTics(12));
-		Chassis.rearRightMotor1.set(ControlMode.Position, AutonomousDrive.getEncTics(12));
-	}
+//	public void moveDistance() {
+//		if (Chassis.rearLeftMotor1.getSelectedSensorPosition(0) < AutonomousDrive.getEncTics()) {
+//			Chassis.autoDriveFoward(dist, true);
+//		}
+//	}
 
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return false;
+		if(Chassis.frontLeftMotor1.getSelectedSensorPosition(0) < AutonomousDrive.getEncTics() && Chassis.frontRightMotor1.getSelectedSensorPosition(0)< AutonomousDrive.getEncTics()) {
+			Chassis.autoDriveFoward(dist, true);
+			return false;
+		}else {
+			return true;
+		}
+		
 	}
 }

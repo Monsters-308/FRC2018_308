@@ -41,7 +41,7 @@ public class Chassis extends Subsystem {
 			RobotMap.frontRightMotor1, RobotMap.rearRightMotor1);
 
 	// Instantiate gyro
-	 public static Gyro gyro = new ADXRS450_Gyro();
+	public static Gyro gyro = new ADXRS450_Gyro();
 
 	@Override
 	// Set default command for a subsystem
@@ -51,41 +51,6 @@ public class Chassis extends Subsystem {
 
 	// Update drive outputs with current joystick values.
 	public void periodic() {
-		// Strafe Forward/Backward Turn Gyro
-
-		double x = 0;
-		double y;
-		double z;
-
-		if (Math.abs(Robot.oi.driverXbox.getRawAxis(1)) > deadzone) {
-			y = Robot.oi.driverXbox.getRawAxis(1);
-		} else {
-			y = 0;
-		}
-
-		if (Math.abs(Robot.oi.driverXbox.getRawAxis(4)) > deadzone) {
-			z = Robot.oi.driverXbox.getRawAxis(4);
-		} else {
-			z = 0;
-		}
-		 
-		mainDrive.driveCartesian(x, -y, z, 0.0);
-		if (Robot.oi.driverXbox.getRawAxis(2) > 0) {
-			x = -Robot.oi.driverXbox.getRawAxis(2);
-			mainDrive.driveCartesian(x, -y, 0, 0.0);
-		}
-
-		if (Robot.oi.driverXbox.getRawAxis(3) > 0) {
-			x = Robot.oi.driverXbox.getRawAxis(3);
-			mainDrive.driveCartesian(x, -y, 0, 0.0);
-		} else {
-			mainDrive.driveCartesian(x, -y, z, 0.0);
-		}
-
-		if (Robot.oi.driverXbox.getRawAxis(2) == 0 && Robot.oi.driverXbox.getRawAxis(3) == 0) {
-			x = 0;
-		}
-
 		RobotConstants.frontLeftEncPos = frontLeftMotor1.getSelectedSensorPosition(0);
 		SmartDashboard.putNumber("Front Left Encoder Value", RobotConstants.frontLeftEncPos);
 
@@ -109,10 +74,10 @@ public class Chassis extends Subsystem {
 
 	// Initialize gyro.
 	public void gyro() {
-		 RobotConstants.angle = gyro.getAngle(); // get current heading
-//		 RobotMap.drive(-1.0, -(RobotConstants.angle) * (RobotConstants.ChassisKp));
-//		 // drive towards heading 0
-//		 Timer.delay(0.004);
+		RobotConstants.angle = gyro.getAngle(); // get current heading
+		// RobotMap.drive(-1.0, -(RobotConstants.angle) * (RobotConstants.ChassisKp));
+		// // drive towards heading 0
+		// Timer.delay(0.004);
 	}
 
 	// Setup motor followers and inversions
@@ -127,18 +92,25 @@ public class Chassis extends Subsystem {
 		frontRightMotor1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		rearLeftMotor1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		rearRightMotor1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-		
+
 		frontLeftMotor1.setSelectedSensorPosition(0, 0, 100);
 		rearLeftMotor1.setSelectedSensorPosition(0, 0, 100);
 		frontRightMotor1.setSelectedSensorPosition(0, 0, 100);
 		rearRightMotor1.setSelectedSensorPosition(0, 0, 100);
-		
+
 		rearLeftMotor1.setSensorPhase(true);
 		frontLeftMotor1.setSensorPhase(false);
 
 		rearRightMotor1.setSensorPhase(true);
 		frontRightMotor1.setSensorPhase(true);
-		
-		
+
+	}
+
+	public static void autoDriveFoward(double dist, boolean direction) {
+		if (direction == true) {
+			Robot.chassis.mainDrive.driveCartesian(0, dist, 0);
+		}else if(direction == false){
+			Robot.chassis.mainDrive.driveCartesian(0, -dist, 0);
+		}
 	}
 }

@@ -66,7 +66,7 @@ public class Arm extends Subsystem {
 		// WARNING: inGameMode MUST be set to True in code prior to deployment to be
 		// correct during Game Matches
 		if (Robot.inGameMode == false) {
-			maxArmExtension = 2000;
+			maxArmExtension = 48056;
 			maxArmHeight = 4700;
 			armUDPackageZoneMidPoint = 1075;
 			armUDPackageZoneLowerLimit = 156;
@@ -77,6 +77,14 @@ public class Arm extends Subsystem {
 			armUDPackageZoneMidPoint = 1075;
 			armUDPackageZoneLowerLimit = 156;
 			armUDPackageZoneUpperLimit = 2000;
+		}
+	}
+	
+	public void ketteringArmExtension() {
+		if(Robot.oi.codriver.getRawButton(6) == true && extendArmMotor.getSelectedSensorPosition(0) < maxArmExtension ) {
+			extendArmMotor.set(1.0);
+		}else if(Robot.oi.codriver.getRawButton(4) == true) {
+			extendArmMotor.set(-1.0);
 		}
 	}
 

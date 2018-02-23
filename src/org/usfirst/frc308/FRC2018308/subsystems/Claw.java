@@ -26,7 +26,7 @@ public class Claw extends Subsystem {
 	}
 	
 	public void openClaw() {
-		if(Robot.oi.codriver.getRawButton(2) == true) {
+		if(Robot.oi.codriver.getRawButton(3) == true) {
 			Claw.clawSolenoid.set(false);
 		}
 		if(Robot.oi.codriver.getRawButton(1) == true) {

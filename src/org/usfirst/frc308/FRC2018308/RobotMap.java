@@ -89,6 +89,7 @@ public class RobotMap {
 //        LiveWindow.addActuator("Pneumatics", "clawSolenoid", clawSolenoid);
         
         if(Robot.inGameMode == false) {
+        	rearLeftMotor1 = new WPI_TalonSRX(5);
         	clawSolenoid = new Solenoid(2);
         	leftReleaseSolenoid = new Solenoid(4);
             leftLiftSolenoid = new Solenoid(0);
@@ -96,6 +97,7 @@ public class RobotMap {
             rightLiftSolenoid = new Solenoid(1);
        }
         if(Robot.inGameMode == true){
+        	rearLeftMotor1 = new WPI_TalonSRX(4);
         	clawSolenoid = new Solenoid(4);
         	leftReleaseSolenoid = new Solenoid(1);
             leftLiftSolenoid = new Solenoid(0);
