@@ -11,6 +11,7 @@ public class Lift extends Subsystem {
 
 	public static boolean leftWingDown;
 	public static boolean rightWingDown;
+	public static boolean armed;
 
 	public void initDefaultCommand() {
 		setDefaultCommand(new TeleopLift());
@@ -19,22 +20,29 @@ public class Lift extends Subsystem {
 	public void setupLift() {
 		leftWingDown = false;
 		rightWingDown = false;
+		armed = false;
 		
 		RobotMap.leftReleaseSolenoid.set(false);
         RobotMap.leftLiftSolenoid.set(false);
         RobotMap.rightReleaseSolenoid.set(false);
         RobotMap.rightLiftSolenoid.set(false);
 	}
+	
+	public void armWings() {
+		if(Robot.oi.driverXbox.getRawButton(4) == true) {
+			armed = true;
+		}
+	}
 
 	public void dropWingLeft() {
-		if (Robot.oi.codriver.getRawButton(7) == true) {
+		if (Robot.oi.codriver.getRawButton(7) == true && armed == true) {
 			RobotMap.leftReleaseSolenoid.set(true);
 			leftWingDown = true;
 		}
 	}
 
 	public void dropWingRight() {
-		if (Robot.oi.codriver.getRawButton(8) == true) {
+		if (Robot.oi.codriver.getRawButton(8) == true && armed == true) {
 			RobotMap.rightReleaseSolenoid.set(true);
 			rightWingDown = true;
 		}

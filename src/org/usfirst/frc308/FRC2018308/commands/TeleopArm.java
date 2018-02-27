@@ -18,7 +18,7 @@ public class TeleopArm extends Command {
 
 	protected void execute() {
 		Robot.arm.move();
-//		Robot.arm.extendArm();
+		Robot.arm.extendArm();
 	}
 
 	@Override
