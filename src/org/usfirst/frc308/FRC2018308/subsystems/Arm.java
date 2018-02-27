@@ -95,16 +95,14 @@ public class Arm extends Subsystem {
 //			extendArmMotor.setSelectedSensorPosition(0, 0, 100);
 //		}
 		//If In/Out Joystick is not neutral
-		if (Robot.oi.codriver.getZ() != 0) {
-			extendArmMotor.set(ControlMode.PercentOutput, Robot.oi.codriver.getZ() * -1);
-			System.out.println("Not Neutral" + extendArmMotor.getSelectedSensorPosition(0));
-		//If joystick is neutral and button is pressed
-		} else if (Robot.oi.codriver.getRawButton(9) == true && armExtension >= maxArmExtension) {
+		if (Robot.oi.codriver.getRawButton(2) == true && armExtension >= maxArmExtension) {
 			extendArmMotor.set(-0.5);
 			System.out.println("Retracting Arm" + extendArmMotor.getSelectedSensorPosition(0));
 		}else if(Robot.oi.codriver.getZ() == 0) {
 			extendArmMotor.set(0);
 			System.out.println("Neutral" + extendArmMotor.getSelectedSensorPosition(0));
+		}else {
+			extendArmMotor.set(0);
 		}
 
 		//Zero encoder if negative
