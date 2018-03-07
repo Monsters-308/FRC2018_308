@@ -18,7 +18,10 @@ public class TeleopArm extends Command {
 
 	protected void execute() {
 		Robot.arm.move();
-		Robot.arm.extendArm();
+		Robot.arm.extendArmManual();
+		//Robot.arm.extendArmAutomatic();
+		Robot.arm.extendArmAutomaticCase();
+		Robot.arm.getArmAngle();
 	}
 
 	@Override

@@ -21,6 +21,7 @@ public class TeleopLift extends Command {
 
 	@Override
 	protected void execute() {
+		Robot.lift.armWings();
 		Robot.lift.periodic();
 	}
 
