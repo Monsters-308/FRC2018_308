@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class CenterAutonomousCommand extends CommandGroup {
+public class CenterRightAutonomousCommand extends CommandGroup {
 
-	public CenterAutonomousCommand() {
+	public CenterRightAutonomousCommand() {
 		addSequential(new AutonomousExtendArm());
 		addParallel(new AutonomousRaiseArmSwitch());
 		addSequential(new AutonomousDrive(140, true));

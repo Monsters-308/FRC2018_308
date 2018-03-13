@@ -60,7 +60,7 @@ public class OI {
 
 
         // SmartDashboard Buttons
-        SmartDashboard.putData("Autonomous Command", new CenterAutonomousCommand());
+        SmartDashboard.putData("Autonomous Command", new CenterRightAutonomousCommand());
         SmartDashboard.putData("armControl", new TeleopArm());
         SmartDashboard.putData("clawControl", new TeleopClaw());
         SmartDashboard.putData("drive", new TeleopDrive());
