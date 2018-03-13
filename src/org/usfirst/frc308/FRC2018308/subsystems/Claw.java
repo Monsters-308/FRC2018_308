@@ -34,5 +34,9 @@ public class Claw extends Subsystem {
 		}
 	}
 	
+	public void autoOpenClaw() {
+		Claw.clawSolenoid.set(true);;
+	}
+	
 
 }

@@ -2,6 +2,7 @@ package org.usfirst.frc308.FRC2018308.subsystems;
 
 import org.usfirst.frc308.FRC2018308.Robot;
 import org.usfirst.frc308.FRC2018308.RobotMap;
+import org.usfirst.frc308.FRC2018308.commands.AutonomousRaiseArmSwitch;
 import org.usfirst.frc308.FRC2018308.commands.TeleopArm;
 import org.usfirst.frc308.FRC2018308.subsystems.Arm;
 
@@ -39,9 +40,9 @@ public class Arm extends Subsystem {
 	public static int _midHighExtension; // guess full extension in mid to high degrees
 	public static int _highExtension; // guess full extension in high degrees
 	public static int armAngle;
-
-	//State of the arm limit switch that stops arm from extending beyond package.
-	//Arm Limit Switch: False - Limit not Reached and Arm Not Fully Extended.  True - Limit Reached and Arm Fully Extended
+	// State of the arm limit switch that stops arm from extending beyond package.
+	// Arm Limit Switch: False - Limit not Reached and Arm Not Fully Extended. True
+	// - Limit Reached and Arm Fully Extended
 	public static boolean limitSwitchState;
 
 	// public static double maxValue = 10000;
@@ -73,13 +74,13 @@ public class Arm extends Subsystem {
 		armExtension = extendArmMotor.getSelectedSensorPosition(0);
 		_lastPositionRate = 0;
 		_lastDemandSpeed = 0.0;
+		
 
 		// WARNING: inGameMode MUST be set to True in code prior to deployment to be
 		// correct during Game Matches
 		if (Robot.inGameMode == false) {
-			
-			//Used in the Arm In/Out logic
-			maxArmHeight = 4700;
+			// Used in the Arm In/Out logic
+			maxArmHeight = 8900;
 			_armDegreesAtStartOfPackage = 45; // Was 52 guess need to verify
 			_armEncoderAt180 = 4700; // guess need to verify
 
@@ -88,15 +89,11 @@ public class Arm extends Subsystem {
 			_midExtension = 60589; // guess full extension in mid degrees
 			_midHighExtension = 101633; // guess full extension in mid to high degrees
 			_highExtension = 101633; // guess full extension in high degrees
-			
-			//Matteo: This is only in the Practice Mode config why and what does it do?
-//			extendArmMotor.setSelectedSensorPosition(101633, 0, 0);
+
 		} else if (Robot.inGameMode == true) {
-			maxArmHeight = 9500;
-
-			_armDegreesAtStartOfPackage = 15; // guess need to verify
-			_armEncoderAt180 = 60589; // guess need to verify
-
+			maxArmHeight = 9500; // guess need to verify
+			_armEncoderAt180 = 9500; // guess need to verify
+			_armDegreesAtStartOfPackage = 45;
 			_lowExtension = 101633; // guess full extension in low degrees
 			_lowMidExtension = 60589; // guess full extension in low to mid degrees
 			_midExtension = 60589; // guess full extension in mid degrees
@@ -108,136 +105,99 @@ public class Arm extends Subsystem {
 
 	public void extendArmManual() {
 
-		//Tom: Added this to the Manual functional as it was only being called from Auto.  Put in a central place
+		// Tom: Added this to the Manual functional as it was only being called from
+		// Auto. Put in a central place
 		limitSwitchState = limitSwitch.get();
-		
-		//If CoDriver Joystick Bottom Button then Retract Arm
+
+		// If CoDriver Joystick Bottom Button then Retract Arm
 		if (Robot.oi.codriver.getRawButton(4) == true) {
 			extendArmMotor.set(-1);
-		//Else If CoDriver Joystick Top Button then Extent Arm
-		}else if (Robot.oi.codriver.getRawButton(6) == true && limitSwitchState == true) {
+			// Else If CoDriver Joystick Top Button then Extent Arm
+		} else if (Robot.oi.codriver.getRawButton(6) == true && limitSwitchState == true) {
 			extendArmMotor.set(1);
-		//Else Netural	
-		}else {
+			// Else Netural
+		} else {
 			extendArmMotor.set(0);
 		}
-		
-	}
-	
-	public void extendArmAutomatic() {
-		
-		//***************NOT CALLED SEE extendArmutomaticCase CODE BELOW *****************************
-		
-		//Arm Limit Switch: False - Limit not Reached and Arm Not Fully Extended.  True - Limit Reached and Arm Fully Extended
-		limitSwitchState = limitSwitch.get();
-		
-//		if (limitSwitch.get() == false) {
-//			extendArmMotor.setSelectedSensorPosition(101633, 0, 100);
-//		}
-		//If the Arm Up or Down buttons on the CoDriver Joystick are not selected
-		if (Robot.oi.codriver.getRawButton(4) == false && Robot.oi.codriver.getRawButton(6) == false  && Robot.oi.codriver.getRawButton(11) == false)  {
-			
-			// If Arm Angle value is within the "Out Of Package" range then Retract
-			if (armAngle >= 1 && armAngle < 3) {
-				extendArmMotor.set(-1);
-			}
 
-			
-			//Matteo: What does this do?
-			//Change to use a variable set in the configuration code
-			if (extendArmMotor.getSelectedSensorPosition(0) <= 60589) {
-				extendArmMotor.set(0);
-			}
-			
-//			if(armAngle > 4 && armAngle < 5) {
-//				extendArmMotor.set(1);
-//			}
-			
-			
-			if(armAngle < 1 && limitSwitchState == true) {
-				extendArmMotor.set(1);
-			}
-
-		}			
-	
 	}
 
 	public void extendArmAutomaticCase() {
-		//Arm Limit Switch: False - Limit not Reached and Arm Not Fully Extended.  True - Limit Reached and Arm Fully Extended
+		// Arm Limit Switch: False - Limit not Reached and Arm Not Fully Extended. True
+		// - Limit Reached and Arm Fully Extended
 		limitSwitchState = limitSwitch.get();
-		
-		//If the Arm Up or Down buttons on the CoDriver Joystick are not selected
-		//OR CoDriver Button 11 Override is not held down
-		//Matteo:  Make the Button 11 Override from a held down to a toggle
-		if (Robot.oi.codriver.getRawButton(4) == false && Robot.oi.codriver.getRawButton(6) == false && Robot.oi.codriver.getRawButton(11) == false) {
-			
+
+		if(armMotor.getSelectedSensorPosition(0) < 0) {
+			armMotor.setSelectedSensorPosition(0, 0, 100);
+		}
+		// Sets arm extension encoder to pre-determined max value when limitswitch is
+		// pressed
+		if (limitSwitchState == false) {
+			extendArmMotor.setSelectedSensorPosition(101663, 0, 100);
+		}
+
+		// If the Arm Up or Down buttons on the CoDriver Joystick are not selected
+		// OR CoDriver Button 11 Override is not held down
+
+		// System.out.println("In Auto");
+		if (Robot.oi.codriver.getRawButton(4) == false && Robot.oi.codriver.getRawButton(6) == false
+				&& Robot.oi.codriver.getRawButton(11) == false) {
+			// System.out.println("In Function");
 			armExtension = extendArmMotor.getSelectedSensorPosition(0);
+			
 			// if we want to stay in package then we get the arm angle and then modify
 			// the maximum extend before the joystick moves it.
 			// break up the angle in groups of 10 example 90 degrees = 9, 180 degrees = 18
 			switch ((int) (armAngle / 10.0)) {
-			
-			 case 1:
-			 case 2:
-			 case 3:
-				 
+
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+			case 5:
 				// allow arm to do low extension
-				 if (armExtension > _lowExtension) {
-				 extendArmMotor.set(0);
-				 System.out.println("Neutral" + extendArmMotor.getSelectedSensorPosition(0));
-				 }
-				 break;
-			 case 4:
-			 case 5:
-			 case 6:
-				 // allow arm to do low to mid extension
-				 if (armExtension > _lowMidExtension) {
-				 extendArmMotor.set(-0.5);
-				 System.out.println("Neutral" + extendArmMotor.getSelectedSensorPosition(0));
-				 }
-			 break;
-			 case 7:
-			 case 8:
-			 case 9:
-			 case 10:
-			 case 11:
+				if (limitSwitchState == true) {
+					extendArmMotor.set(0.5);
+					System.out.println("Neutral" + extendArmMotor.getSelectedSensorPosition(0));
+				}
+				break;
+			case 6:
+			case 7:
+			case 8:
+			case 9:
+			case 10:
+			case 11:
+			case 12:
+				// allow arm to do low to mid extension
+				if (armExtension > _lowMidExtension) {
+					extendArmMotor.set(-1.0);
+					System.out.println("Neutral" + extendArmMotor.getSelectedSensorPosition(0));
+				}
+				break;
+			case 13:
+			case 14:
+			case 15:
+			case 16:
+			case 17:
+			case 18:
+			case 19:
 				// allow arm to do mid extension
-				 if (armExtension > _midExtension && limitSwitch.get() == false) {
-				 extendArmMotor.set(0.5);
-				 System.out.println("Neutral" + extendArmMotor.getSelectedSensorPosition(0));
-				 }
-				 break;
-			 case 12:
-			 case 13:
-			 case 14:
-				 // allow the arm to do mid to full extension
-				 if (armExtension > _midHighExtension) {
-				 extendArmMotor.set(0);
-				 System.out.println("Neutral" + extendArmMotor.getSelectedSensorPosition(0));
-				 }
-				 break;
-			 case 15:
-			 case 16:
-			 case 17:
-			 case 18:
-			 case 19:
-				 // allow the arm to do full extension
-				 if (armExtension > _highExtension) {
-				 extendArmMotor.set(0);
-				 System.out.println("Neutral" + extendArmMotor.getSelectedSensorPosition(0));
-				 }
-				 break;
-			
-			 default:
-			 // we don't want to limit if out of control to allow the extension to be
-			 // retracted
-			 break;
-			} //end of case
-			
-			} //end of If Joystick is in control
-		
-	} //end of function
-	
+				if (limitSwitchState == true) {
+					extendArmMotor.set(1.0);
+					System.out.println("Neutral" + extendArmMotor.getSelectedSensorPosition(0));
+				}
+				break;
+
+			default:
+				// we don't want to limit if out of control to allow the extension to be
+				// retracted
+				break;
+			} // end of case
+
+		} // end of If Joystick is in control
+
+	} // end of function
+
 	public double getArmAngle() {
 		double retval = 0.0;
 		// define the arm angle in reference to encoder value of the arm
@@ -250,18 +210,19 @@ public class Arm extends Subsystem {
 		// now determine the range of encoder over a range of degrees
 		// ratio degree/encoder = (180 - _armDegreesAtStartOfPackage) / _armEncoderAt180
 		int armPosition = armMotor.getSelectedSensorPosition(0);
-		if(armPosition <= 0) {
+		if (armPosition <= 0) {
 			armPosition = 0;
 		}
-		retval = (double) (armPosition
-				* ((180.0 - _armDegreesAtStartOfPackage) / _armEncoderAt180)) + _armDegreesAtStartOfPackage;
+		retval = (double) (armPosition * ((180.0 - _armDegreesAtStartOfPackage) / _armEncoderAt180))
+				+ _armDegreesAtStartOfPackage;
 
 		armAngle = (int) retval;
-		System.out.println("Arm Angle: " + armAngle);
+		// System.out.println("Arm Angle: " + armAngle);
 		return retval;
 	}
 
-	//Despite the reallllly generic name of "Move", this code Moves the Arm Up and Down
+	// Despite the reallllly generic name of "Move", this code Moves the Arm Up and
+	// Down
 	public void move() {
 		codriverJoystickValue = Robot.oi.codriver.getY();
 
@@ -277,7 +238,7 @@ public class Arm extends Subsystem {
 			armMotor.setNeutralMode(NeutralMode.Coast);
 			armMotor.set(ControlMode.PercentOutput, codriverJoystickValue);
 			armDirection = "Arm Down";
-		//	System.out.println("Arm Down");
+			// System.out.println("Arm Down");
 
 			// Move Arm Up if not already at the bottom
 		} else if (codriverJoystickValue >= 0.1 && (armMotor.getSelectedSensorPosition(0) < maxArmHeight)) {
@@ -310,8 +271,10 @@ public class Arm extends Subsystem {
 
 		// SmartDashboard.putNumber("Arm Up/Down Encoder",
 		// armMotor.getSelectedSensorPosition(0));
-//		System.out.println("Arm Up/Down Encoder: " + armMotor.getSelectedSensorPosition(0) + " -- Arm In/Out Encoder: " + extendArmMotor.getSelectedSensorPosition(0));
-//		System.out.println("Arm Angle: " + armAngle);
+		// System.out.println("Arm Up/Down Encoder: " +
+		// armMotor.getSelectedSensorPosition(0) + " -- Arm In/Out Encoder: " +
+		// extendArmMotor.getSelectedSensorPosition(0));
+		// System.out.println("Arm Angle: " + armAngle);
 
 		SmartDashboard.putNumber("Last Arm Up/Down Position", _lastPosition);
 		SmartDashboard.putNumber("Joystick Value", codriverJoystickValue);
@@ -322,12 +285,35 @@ public class Arm extends Subsystem {
 		SmartDashboard.putNumber("Arm Angle", armAngle);
 		SmartDashboard.putNumber("Arm Up/Down Encoder Value", armMotor.getSelectedSensorPosition(0));
 		SmartDashboard.putNumber("Arm In/Out Encoder Value:", extendArmMotor.getSelectedSensorPosition(0));
+		System.out.println(
+				"armExtension = " + armExtension + "arm up/down encoder" + armMotor.getSelectedSensorPosition(0));
 
+	}
+
+	public void autoRaiseArmSwitch() {
+//		Arm.armMotor.set(ControlMode.Current, 0.75);
+		if(armMotor.getSelectedSensorPosition(0) < AutonomousRaiseArmSwitch.switchHeight) {
+			armMotor.set(0.5);
+			System.out.println("In AutoRaiseArm");
+		}
+	}
+	
+	public void autoRaiseArmScale() {
+		Arm.armMotor.set(ControlMode.Position, maxArmHeight);
+	}
+	
+	public void autoExtendArm() {
+	if(limitSwitchState == true) {
+		extendArmMotor.set(1.0);
+	}
 	}
 
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return false;
-	}
 
+			return false;
+	}
 }
+
+
+

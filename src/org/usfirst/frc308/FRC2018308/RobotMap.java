@@ -102,10 +102,10 @@ public class RobotMap {
         if(Robot.inGameMode == true){
         	rearLeftMotor1 = new WPI_TalonSRX(4);
         	clawSolenoid = new Solenoid(4);
-        	leftReleaseSolenoid = new Solenoid(1);
-            leftLiftSolenoid = new Solenoid(0);
-            rightReleaseSolenoid = new Solenoid(3);
-            rightLiftSolenoid = new Solenoid(2);
+        	leftReleaseSolenoid = new Solenoid(3);
+            leftLiftSolenoid = new Solenoid(2);
+            rightReleaseSolenoid = new Solenoid(1);
+            rightLiftSolenoid = new Solenoid(0);
         }
        
 

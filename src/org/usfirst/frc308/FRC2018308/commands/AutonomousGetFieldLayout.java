@@ -5,7 +5,8 @@ import edu.wpi.first.wpilibj.DriverStation;
 public class AutonomousGetFieldLayout {
 	public static String fieldLayout;
 
-public static void getFieldLayout(){
+public AutonomousGetFieldLayout(){
 	fieldLayout = DriverStation.getInstance().getGameSpecificMessage();
-}
+}	
+	
 }

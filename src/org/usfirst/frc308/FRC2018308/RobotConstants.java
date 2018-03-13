@@ -7,7 +7,7 @@ public class RobotConstants {
 	public static final double ChassisKd = 0;
 	public static final double ChassisKi = 0;
 	
-	public static double angle;
+	public static int angle;
 
 	public static double frontLeftEncPos;
 	public static double rearLeftEncPos;

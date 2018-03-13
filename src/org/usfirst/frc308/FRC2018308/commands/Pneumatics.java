@@ -1,5 +1,5 @@
 
-package org.usfirst.frc308.FRC2018308.subsystems;
+package org.usfirst.frc308.FRC2018308.commands;
 
 import org.usfirst.frc308.FRC2018308.RobotMap;
 import org.usfirst.frc308.FRC2018308.commands.*;

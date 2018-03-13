@@ -68,13 +68,13 @@ public class Chassis extends Subsystem {
 		SmartDashboard.putNumber("Front Left Motor Speed", frontLeftMotor1.get());
 		SmartDashboard.putNumber("Front Right Motor Speed", frontRightMotor1.get());
 
-		SmartDashboard.putNumber("Angle", RobotConstants.angle);
+		SmartDashboard.putNumber("Chassis Angle", (int)RobotConstants.angle);
 
 	}
 
 	// Initialize gyro.
 	public void gyro() {
-		RobotConstants.angle = gyro.getAngle(); // get current heading
+		RobotConstants.angle = (int)gyro.getAngle(); // get current heading
 		// RobotMap.drive(-1.0, -(RobotConstants.angle) * (RobotConstants.ChassisKp));
 		// // drive towards heading 0
 		// Timer.delay(0.004);
@@ -87,7 +87,8 @@ public class Chassis extends Subsystem {
 		//
 		// rearLeftMotor2.follow(Chassis.rearLeftMotor1);
 		// rearRightMotor2.follow(Chassis.rearRightMotor1);
-
+		gyro.reset();
+		
 		frontLeftMotor1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		frontRightMotor1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		rearLeftMotor1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
@@ -101,16 +102,22 @@ public class Chassis extends Subsystem {
 		rearLeftMotor1.setSensorPhase(true);
 		frontLeftMotor1.setSensorPhase(false);
 
-		rearRightMotor1.setSensorPhase(true);
-		frontRightMotor1.setSensorPhase(true);
-
-	}
-
-	public static void autoDriveFoward(double dist, boolean direction) {
-		if (direction == true) {
-			Robot.chassis.mainDrive.driveCartesian(0, dist, 0);
-		}else if(direction == false){
-			Robot.chassis.mainDrive.driveCartesian(0, -dist, 0);
+		if(Robot.inGameMode == true) {
+			frontRightMotor1.setSensorPhase(true);
+			rearRightMotor1.setSensorPhase(false);
+		}else {
+			frontRightMotor1.setSensorPhase(false);
+			rearRightMotor1.setSensorPhase(true);
 		}
+
 	}
-}
+
+	public void moveDistance(double percent, double heading) {
+		mainDrive.driveCartesian(0.0, percent, 0.0, heading);
+		}
+
+	public void turn(double d) {
+		mainDrive.driveCartesian(0, 0, d);
+	}
+	}
+
