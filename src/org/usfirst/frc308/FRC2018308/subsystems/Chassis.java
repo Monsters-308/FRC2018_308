@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 /**
@@ -52,24 +53,21 @@ public class Chassis extends Subsystem {
 	// Update drive outputs with current joystick values.
 	public void periodic() {
 		RobotConstants.frontLeftEncPos = frontLeftMotor1.getSelectedSensorPosition(0);
-		SmartDashboard.putNumber("Front Left Encoder Value", RobotConstants.frontLeftEncPos);
-
+		SmartDashboard.putNumber("Front Left Encoder Position", frontLeftMotor1.getSelectedSensorPosition(0));
 		RobotConstants.rearLeftEncPos = rearLeftMotor1.getSelectedSensorPosition(0);
-		SmartDashboard.putNumber("Rear Left Encoder Value", RobotConstants.rearLeftEncPos);
-
+		SmartDashboard.putNumber("reart Left Encoder Position", rearLeftMotor1.getSelectedSensorPosition(0));
 		RobotConstants.frontRightEncPos = frontRightMotor1.getSelectedSensorPosition(0);
-		SmartDashboard.putNumber("Front Right Encoder Value", RobotConstants.frontRightEncPos);
-
+		SmartDashboard.putNumber("Front Right Encoder Position", frontRightMotor1.getSelectedSensorPosition(0));
 		RobotConstants.rearRightEncPos = rearRightMotor1.getSelectedSensorPosition(0);
-		SmartDashboard.putNumber("Rear Right Encoder Value", RobotConstants.rearRightEncPos);
-
-		SmartDashboard.putNumber("Rear Left Motor Speed", rearLeftMotor1.get());
-		SmartDashboard.putNumber("Rear Right Motor Speed", rearRightMotor1.get());
+		SmartDashboard.putNumber("Rear Right Encoder Position", rearRightMotor1.getSelectedSensorPosition(0));
+		
+		SmartDashboard.putNumber("Chassis Angle", gyro.getAngle());
+		
 		SmartDashboard.putNumber("Front Left Motor Speed", frontLeftMotor1.get());
+		SmartDashboard.putNumber("Rear Left Motor Speed", rearLeftMotor1.get());
 		SmartDashboard.putNumber("Front Right Motor Speed", frontRightMotor1.get());
-
-		SmartDashboard.putNumber("Chassis Angle", (int)RobotConstants.angle);
-
+		SmartDashboard.putNumber("Rear Right Motor Speed", rearRightMotor1.get());
+		
 	}
 
 	// Initialize gyro.
@@ -82,11 +80,11 @@ public class Chassis extends Subsystem {
 
 	// Setup motor followers and inversions
 	public static void setupDrive() {
-		// frontLeftMotor2.follow(Chassis.frontLeftMotor1);
-		// frontRightMotor2.follow(Chassis.frontRightMotor1);
-		//
-		// rearLeftMotor2.follow(Chassis.rearLeftMotor1);
-		// rearRightMotor2.follow(Chassis.rearRightMotor1);
+		frontLeftMotor1.setNeutralMode(NeutralMode.Brake);
+		frontLeftMotor1.setNeutralMode(NeutralMode.Brake);
+		frontLeftMotor1.setNeutralMode(NeutralMode.Brake);
+		frontLeftMotor1.setNeutralMode(NeutralMode.Brake);
+		
 		gyro.reset();
 		
 		frontLeftMotor1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
@@ -113,9 +111,14 @@ public class Chassis extends Subsystem {
 	}
 
 	public void moveDistance(double percent, double heading) {
-		mainDrive.driveCartesian(0.0, percent, 0.0, heading);
+		mainDrive.driveCartesian(0.0, percent, 0.0, 0.0);
 		}
-
+	
+	public void autoStrafe(double percent) {
+		mainDrive.driveCartesian(percent, 0.0, 0.0, 0.0);
+		}
+	
+	
 	public void turn(double d) {
 		mainDrive.driveCartesian(0, 0, d);
 	}

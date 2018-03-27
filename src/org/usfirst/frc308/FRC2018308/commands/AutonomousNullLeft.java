@@ -3,11 +3,10 @@ package org.usfirst.frc308.FRC2018308.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class AutonomousCrossLine extends CommandGroup{
+public class AutonomousNullLeft extends CommandGroup{
 
-	public AutonomousCrossLine()  {
-//		addParallel(new AutonomousRaiseArmSwitch());
-		addSequential(new AutonomousDrive(140, true));
+	public AutonomousNullLeft()  {
+//		
 	}
 	@Override
 	protected boolean isFinished() {

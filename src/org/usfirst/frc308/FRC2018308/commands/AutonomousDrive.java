@@ -9,24 +9,28 @@ import org.usfirst.frc308.FRC2018308.subsystems.Chassis;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class AutonomousDrive extends Command{
+public class AutonomousDrive extends Command {
 	public double distance;
 	public boolean dir;
 	public double distanceTrav;
-	
+
 	public static double highSpeed;
 	public static double lowSpeed;
-	
+
 	public static double heading;
+
 	public AutonomousDrive(double inches, boolean direction) { // true is forward, false is backward
-//			requires(Robot.chassis);
+		// requires(Robot.chassis);
 		highSpeed = 0.5;
 		lowSpeed = 0.3;
-			double dist = inches - 40;
+		double dist = inches - 40;
+		if (Robot.inGameMode == false) {
 			distance = dist * (7.2 * Math.PI);
-			dir = direction;
+		} else if (Robot.inGameMode == true) {
+			distance = (dist * (7.2 * Math.PI)) * 2;
 		}
-
+		dir = direction;
+	}
 
 	protected void initialize() {
 		Chassis.frontLeftMotor1.setSelectedSensorPosition(0, 0, 100);
@@ -45,7 +49,7 @@ public class AutonomousDrive extends Command{
 
 		} else {
 			distanceTrav = (Chassis.rearLeftMotor1.getSelectedSensorPosition(0)
-					+ Chassis.rearRightMotor1.getSelectedSensorPosition(0) / 2)* -1;
+					+ Chassis.rearRightMotor1.getSelectedSensorPosition(0) / 2) * -1;
 		}
 
 	}

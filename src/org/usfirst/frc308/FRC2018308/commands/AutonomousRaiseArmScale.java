@@ -7,7 +7,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class AutonomousRaiseArmSwitch extends Command {
+public class AutonomousRaiseArmScale extends Command {
 
 	public static double switchHeight = 3500;
 
@@ -18,13 +18,13 @@ public class AutonomousRaiseArmSwitch extends Command {
 
 	protected void execute() {
 		System.out.println("Executing Raise Arm");
-		Robot.arm.autoRaiseArmSwitch();
+		Robot.arm.autoRaiseArmScale();
 	}
 
 	@Override
 	protected boolean isFinished() {
 //		// TODO Auto-generated method stub
-		if (Arm.armMotor.getSelectedSensorPosition(0) > switchHeight) {
+		if (Arm.armMotor.getSelectedSensorPosition(0) >= Arm.maxArmHeight) {
 			return true;
 		}
 		return false;

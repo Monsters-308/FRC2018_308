@@ -17,6 +17,7 @@ public class AutonomousTurnRight extends Command {
 	
 	protected void initialize()  //resets gyro
 	{
+		Chassis.gyro.reset();
 		Chassis.setupDrive();
 		System.out.println("in auto turn right");
 
