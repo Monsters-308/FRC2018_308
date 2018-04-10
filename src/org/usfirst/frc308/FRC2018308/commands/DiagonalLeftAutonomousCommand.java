@@ -12,10 +12,10 @@ public class DiagonalLeftAutonomousCommand extends CommandGroup {
 	public DiagonalLeftAutonomousCommand() {
 		addSequential(new AutonomousDrive(50, true));
 		addSequential(new AutonomousTurnLeft(-45));
-		addSequential(new AutonomousDrive(85, true));
+		addSequential(new AutonomousDrive(95, true));
 		addSequential(new AutonomousTurnRight(55));
 		addSequential(new AutonomousRaiseArmSwitch());
-		addSequential(new AutonomousDrive(80, true));
+		addSequential(new AutonomousDrive(90, true));
 		addSequential(new AutonomousOpenClaw());
 		addSequential(new AutonomousDrive(70, false));
 	}

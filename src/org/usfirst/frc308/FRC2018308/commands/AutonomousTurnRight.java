@@ -26,7 +26,7 @@ public class AutonomousTurnRight extends Command {
 	public void currentHeading() // gets current heading from gyro 
 	{
 		degreesTrav = (Chassis.gyro.getAngle());
-		System.out.println("current angle " + Chassis.gyro.getAngle());
+//		System.out.println("current angle " + Chassis.gyro.getAngle());
 	}
 	protected void execute()
 	{

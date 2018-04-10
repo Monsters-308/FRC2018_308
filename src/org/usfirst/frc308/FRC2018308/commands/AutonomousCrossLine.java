@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutonomousCrossLine extends CommandGroup{
 
 	public AutonomousCrossLine()  {
+
+		System.out.println("In Cross Line");
 //		addParallel(new AutonomousRaiseArmSwitch());
 		addSequential(new AutonomousDrive(140, true));
 	}

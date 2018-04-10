@@ -10,14 +10,11 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class LeftScaleAutonomousCommand extends CommandGroup {
 
 	public LeftScaleAutonomousCommand() {
-//		addSequential(new AutonomousExtendArm());
 		addSequential(new AutonomousDrive(382, true));
 		addSequential(new AutonomousTurnLeft(-90));
 		addSequential(new AutonomousDrive(50, true));
 		addSequential(new AutonomousRaiseArmScale());
-//		addSequential(new AutonomousDrive(50, true));
 		addSequential(new AutonomousOpenClaw());
-		addSequential(new AutonomousLowerArm());
 	}
 
 	@Override

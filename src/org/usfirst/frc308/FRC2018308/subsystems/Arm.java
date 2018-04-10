@@ -178,7 +178,7 @@ public class Arm extends Subsystem {
 			case 7:
 				// allow arm to do low extension
 				if (limitSwitchState == true) {
-					extendArmMotor.set(0.5);
+					extendArmMotor.set(0.75);
 //					System.out.println("Neutral" + extendArmMotor.getSelectedSensorPosition(0));
 				}
 				break;
@@ -290,8 +290,8 @@ public class Arm extends Subsystem {
 		SmartDashboard.putNumber("Arm Angle", Arm.armAngle);
 		SmartDashboard.putBoolean("Arm Limit Switch State" , Arm.limitSwitchState);
 		
-		System.out.println(
-				"armExtension = " + armExtension + "arm up/down encoder" + armMotor.getSelectedSensorPosition(0) +" Actual Arm Extension: " + extendArmMotor.getSelectedSensorPosition(0));
+//		System.out.println(
+//				"armExtension = " + armExtension + "arm up/down encoder" + armMotor.getSelectedSensorPosition(0) +" Actual Arm Extension: " + extendArmMotor.getSelectedSensorPosition(0));
 
 	}
 

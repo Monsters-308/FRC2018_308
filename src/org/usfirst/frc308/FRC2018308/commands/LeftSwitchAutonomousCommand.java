@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class LeftSwitchAutonomousCommand extends CommandGroup {
 
 	public LeftSwitchAutonomousCommand() {
-//		addSequential(new AutonomousExtendArm());
 		addSequential(new AutonomousDrive(160, true));
 		addSequential(new AutonomousRaiseArmSwitch());
 		addSequential(new AutonomousTurnRight(90));

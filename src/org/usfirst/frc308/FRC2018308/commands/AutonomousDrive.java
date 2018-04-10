@@ -21,8 +21,8 @@ public class AutonomousDrive extends Command {
 
 	public AutonomousDrive(double inches, boolean direction) { // true is forward, false is backward
 		// requires(Robot.chassis);
-		highSpeed = 0.5;
-		lowSpeed = 0.3;
+		highSpeed = 0.75;
+		lowSpeed = 0.5;
 		double dist = inches - 40;
 		if (Robot.inGameMode == false) {
 			distance = dist * (7.2 * Math.PI);

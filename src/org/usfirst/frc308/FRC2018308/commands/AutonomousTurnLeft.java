@@ -19,7 +19,7 @@ public class AutonomousTurnLeft extends Command
 	protected void initialize()  //resets gyro
 	{
 		Chassis.setupDrive();
-		System.out.println("in auto turn right");
+		System.out.println("in auto turn left");
 		Chassis.gyro.reset();
 
 	}
@@ -27,7 +27,7 @@ public class AutonomousTurnLeft extends Command
 	public void currentHeading() // gets current heading from gyro 
 	{
 		degreesTrav = Chassis.gyro.getAngle();
-		System.out.println("current angle " + Chassis.gyro.getAngle());
+//		System.out.println("current angle " + Chassis.gyro.getAngle());
 	}
 	protected void execute()
 	{
